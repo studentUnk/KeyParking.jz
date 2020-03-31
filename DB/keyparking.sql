@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 29, 2020 at 08:54 PM
+-- Generation Time: Mar 31, 2020 at 06:33 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -164,7 +164,8 @@ CREATE TABLE `Usuario` (
   `celular_Usuario` varchar(13) NOT NULL,
   `nombre_Rol` varchar(30) NOT NULL,
   `codigo_Municipio` int(11) NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password_Usuario` varchar(20) NOT NULL,
+  `email_Usuario` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
