@@ -1,5 +1,8 @@
 package applet;
 
+import keyParking.Usuario;
+import keyParking.Database;
+
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -23,8 +26,11 @@ import javax.swing.SwingUtilities;
 
 public class InicioApplet extends JPanel implements ActionListener{
 	
+	static Usuario u;
+	static Database db;
+	
 	static String nameFrame = "Bienvenido a KeyParking.jz";
-	String nombreUsuario = "Usuario";
+	String nombreUsuario = "Usuario(codigo)";
 	String passUsuario = "Password";
 	String botonEnviar = "Enviar";
 	String botonRegistrar = "Registrar";
@@ -95,12 +101,16 @@ public class InicioApplet extends JPanel implements ActionListener{
 		add(panelField);
 		add(buttonSend);
 		add(panelButton);
+		
+		// action button
+		buttonSend.addActionListener(this);
+		buttonRegister.addActionListener(this);
 	}
 	
 	private boolean isPasswordCorrect() {
-		String inputPass = String.valueOf(fieldPass.getPassword());
-		String inputUser = fieldUsuario.getText();
-		return inputPass.equals("dummy") && inputUser.equals("user");
+		u.setPassword(String.valueOf(fieldPass.getPassword()));
+		u.setCodigo(Integer.parseInt(fieldUsuario.getText())); // check first that are just numbers
+		return db.userPassUsuario(u);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -110,6 +120,16 @@ public class InicioApplet extends JPanel implements ActionListener{
 			// dummy test
 			if (isPasswordCorrect()) {
 				JOptionPane.showMessageDialog(frame, messageSuccess);
+				frame.dispose();
+				UsuarioApplet uA = new UsuarioApplet();
+				int tu;
+				switch(db.getRol(u)) {
+					//case "Cliente": tu=1; break;
+					case "Auxiliar": tu=2; break;
+					case "Administrador": tu=3; break;
+					default: tu=1; break;
+				}
+				uA.executeF(tu);
 			}
 			else {
 				JOptionPane.showMessageDialog(frame, messageUnsuccess, "Mensaje de error",
@@ -118,6 +138,10 @@ public class InicioApplet extends JPanel implements ActionListener{
 		}
 		else {
 			// Applet to register the user
+			//JOptionPane.showMessageDialog(frame, "nothing");
+			frame.dispose();
+			RegistroApplet rA = new RegistroApplet();
+			rA.executeF();
 		}
 	}
 	
@@ -140,12 +164,24 @@ public class InicioApplet extends JPanel implements ActionListener{
 		frame.setPreferredSize(new Dimension(width,height));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		u = new Usuario();
+		db = new Database();
 		// add content to the window
 		frame.add(new InicioApplet());
 		
 		// display the window
 		frame.pack();
 		frame.setVisible(true);
+	}
+	
+	public void executeF() {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				// turn off metal's use of bold fonts
+				UIManager.put("swing.boldMetal", Boolean.FALSE);
+				createAndShowGUI();
+			}
+		});
 	}
 	
 	public static void main(String [] args) {
