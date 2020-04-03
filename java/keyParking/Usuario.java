@@ -2,16 +2,21 @@ package keyParking;
 
 public class Usuario{
 	
+	private String nT = "_Usuario";
+	public String nameS [] = new String [] {"documento"+nT,"nombre"+nT,"apellido"+
+			nT,"direccion"+nT,"telefono"+nT,"celular"+nT,"email"+nT,"codigo"+
+			nT,"password"+nT}; 
+	
 	protected int codigo;
-	protected String documento,nombre,apellido,direccion,telefono,celular;
+	protected String documento,nombre,apellido,direccion,telefono,celular,correo;
 	private String password;
 	
-	Usuario(){
+	public Usuario(){
 		codigo = -1;
-		documento=nombre=apellido=direccion=telefono=celular=password="";
+		documento=correo=nombre=apellido=direccion=telefono=celular=password="";
 	}
 	
-	Usuario(int codigo, String documento, String nombre, String apellido, String direccion, String telefono, String celular, String password){
+	public Usuario(int codigo, String documento, String nombre, String apellido, String direccion, String telefono, String celular, String correo, String password){
 		this.codigo = codigo;
 		this.documento = documento;
 		this.nombre = nombre;
@@ -19,71 +24,80 @@ public class Usuario{
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.celular = celular;
+		this.correo = correo;
 		this.password = password;
 	}
 	
-	protected int getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	protected void setCodigo(int codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
-	protected String getDocumento() {
+	public String getDocumento() {
 		return documento;
 	}
 
-	protected void setDocumento(String documento) {
+	public void setDocumento(String documento) {
 		this.documento = documento;
 	}
 
-	protected String getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 
-	protected void setNombre(String nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	protected String getApellido() {
+	public String getApellido() {
 		return apellido;
 	}
 
-	protected void setApellido(String apellido) {
+	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
 
-	protected String getDireccion() {
+	public String getDireccion() {
 		return direccion;
 	}
 
-	protected void setDireccion(String direccion) {
+	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 
-	protected String getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	protected void setTelefono(String telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
-	protected String getCelular() {
+	public String getCelular() {
 		return celular;
 	}
 
-	protected void setCelular(String celular) {
+	public void setCelular(String celular) {
 		this.celular = celular;
 	}
 
-	protected String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	protected void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 	
 }

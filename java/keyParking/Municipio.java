@@ -1,11 +1,15 @@
 package keyParking;
 
 public class Municipio{
+	
+	private String nT = "_Municipio";
+	public String nameS [] = new String [] {"nombre"+nT,"codigo"+nT}; 
+	
 	protected int codigo;
 	protected String nombre;
 	
-	public Municipio(){ // clase vacia
-		codigo = -1;
+	public Municipio(){
+		codigo = 1101; // Bogota
 		nombre = "";
 	}
 	

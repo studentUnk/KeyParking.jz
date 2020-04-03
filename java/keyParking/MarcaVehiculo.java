@@ -2,6 +2,9 @@ package keyParking;
 
 public class MarcaVehiculo {
 	
+	private String nT = "_MarcaVehiculo";
+	public String nameS [] = new String [] {"codigo"+nT,"nombre"+nT};
+	
 	protected int codigo;
 	protected String nombre;
 	

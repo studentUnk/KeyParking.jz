@@ -2,6 +2,10 @@ package keyParking;
 
 public class SitioParqueadero {
 	
+	private String nT = "_SitioParqueadero";
+	public String nameS [] = new String [] {"codigo"+nT,"ubicacion"+nT,
+			"disponibilidad"+nT};
+	
 	protected int codigo;
 	protected String ubicacion,disponibilidad;
 	

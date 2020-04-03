@@ -2,6 +2,9 @@ package keyParking;
 
 public class Departamento {
 	
+	private String nT = "_Departamento";
+	public String nameS [] = new String [] {"codigo"+nT,"nombre"+nT}; 
+	
 	protected String nombre;
 	protected int codigo;
 	
