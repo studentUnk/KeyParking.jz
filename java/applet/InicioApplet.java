@@ -4,11 +4,15 @@ import keyParking.Usuario;
 import keyParking.Database;
 
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JLabel;
@@ -17,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,7 +44,10 @@ public class InicioApplet extends JPanel implements ActionListener{
 	String messageUnsuccess = "Ingreso no valido";
 	
 	static JFrame frame;
-	JLabel labelUsuario, labelPass;
+	BufferedImage imageL;
+	Image imageL2;
+	
+	JLabel labelUsuario, labelPass, imageLL;
 	JTextField fieldUsuario;
 	JPasswordField fieldPass;
 	JPanel panelLabel, panelField, panelButton;
@@ -77,11 +85,20 @@ public class InicioApplet extends JPanel implements ActionListener{
 		buttonSend = new JButton(botonEnviar);
 		buttonRegister = new JButton(botonRegistrar);
 		
+		// image
+		try {
+			//imageL = ImageIO.read(new File("logoF.png"));
+			imageL = ImageIO.read(this.getClass().getResource("logoF2.png"));
+		} catch(IOException e) {
+			System.out.println("Image not found");
+			e.getStackTrace();
+		}
+		//imageL.setIcon(new javax.swing.ImageIcon(getClass().getResource("logo.png")));
+		imageLL = new JLabel(new ImageIcon(imageL));
+		//imageLL.setPreferredSize(new Dimension(500,300));
+		//imageL2 = getImage(getDocumentBase(), "logoF.png");
+		
 		//add the labels
-		//add(label1);
-		//add(labelUsuario);
-		//add(labelPass);
-		//add(label3);
 		panelLabel = new JPanel(new GridLayout(0,1));
 		panelLabel.add(labelUsuario);
 		panelLabel.add(labelPass);
@@ -101,6 +118,7 @@ public class InicioApplet extends JPanel implements ActionListener{
 		add(panelField);
 		add(buttonSend);
 		add(panelButton);
+		add(imageLL);
 		
 		// action button
 		buttonSend.addActionListener(this);
@@ -129,7 +147,7 @@ public class InicioApplet extends JPanel implements ActionListener{
 					case "Administrador": tu=3; break;
 					default: tu=1; break;
 				}
-				uA.executeF(tu);
+				uA.executeF(tu,fieldUsuario.getText());
 			}
 			else {
 				JOptionPane.showMessageDialog(frame, messageUnsuccess, "Mensaje de error",
