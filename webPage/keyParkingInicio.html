@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1> Bienvenido a keyParking.jz </h1>
+
+<form action="php/loginUser.php" method="post">
+	<label for="userT">Usuario</label>
+	<input type="text" id="userT" name="userT"><br>
+	<label for="pwd">Password</label>
+	<input type="password" id="pwd" name="pwd"><br>
+	<!--
+	<button type="button" id="send" name="send" onclick="sendUser()">Ingresar</button><br>
+	-->
+	<input type="submit" value="Ingresar">
+	<button type="button" id="reg" name="reg" onclick="openR()">Registrar</button>
+</form>
+
+<script>
+	function openR(){
+		location.href="keyParkingRegistrar.html";
+	}
+	function sendUser(){
+		var u = document.getElementById("userT").value;
+		if(u == "user"){
+			window.alert("Bienvenido " + u);
+			location.href="keyParkingMenu.html";
+		}else{
+			window.alert("Usuario no valido");
+		}
+	}
+	function errorUser(){
+		window.alert("Usuario no valido");
+	}
+</script>
+<!--
+<script type="text/javascript">
+	document.getElementById("send").onClick = function(){
+		location.href = "keyParkingRegistrar.php";
+	};
+</script>
+---> 
+</body>
+</html>
