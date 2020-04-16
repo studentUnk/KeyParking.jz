@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.menuCompleto:{
+
+}
+
+.vertical-menu {
+	width: 200px;
+	float: left;
+}
+.vertical-menu a{
+	background-color: #F0F8FF;
+	display: block;
+	padding: 8px;
+}
+.vertical-menu a:hover{
+	background-color: #FFEBCD;
+}
+.vertical-menu a.active {
+	background-color: #A52A2A;
+}
+
+.solicitarCupoTexto {
+	float: right;
+}
+
+.mydate {
+	visibility: hidden;
+	hidden;
+}
+</style>
+</head>
+<body>
+
+<h1> Menu </h1>
+<div id="menuCompleto" name="menuCompleto">
+	<div class="vertical-menu">
+	<a href="SolicitarCupo.html">Solicitar cupo</a>
+	<a href="pagarFactura.html">Pagar factura</a>
+	<a href="#3">Facturas pagadas</a>
+	<a href="#4">Alternativas parqueadero</a>
+	<a href="#5">Modificar datos personales</a>
+	<a href="#6">Agregar vehiculo</a>
+	</div>
+	<div id="pagarFactura" name="pagarFactura">
+		<label for="facturaActiva">Facturas en curso</label>
+		<select id="facturaActiva" name="facturaActiva">
+		<option value="Ninguna">Ninguna</option> 
+		</select> <br><br>
+		<input type="submit" value="Pagar">
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,21 +1,48 @@
 <!DOCTYPE html>
 <html>
+<head>
+<script type="text/javascript" src="javascript/script.js"></script>
+<style>
+	body, html {
+		height: 80%;
+		width: 100%;
+	}
+	body {
+		background-image: url('logoF.png');
+		background-repeat: no-repeat;
+		background-position: bottom;
+		background-size:90%
+	}
+	#datosU {
+		margin: auto;
+		text-align: center;
+	}
+	#datosU label{
+		display: inline-block;
+		width: 75px;
+	}
+</style>
+</head>
 <body>
 
 <h1> Bienvenido a keyParking.jz </h1>
 
-<form action="php/loginUser.php" method="post">
-	<label for="userT">Usuario</label>
-	<input type="text" id="userT" name="userT"><br>
-	<label for="pwd">Password</label>
-	<input type="password" id="pwd" name="pwd"><br>
-	<!--
-	<button type="button" id="send" name="send" onclick="sendUser()">Ingresar</button><br>
-	-->
-	<input type="submit" value="Ingresar">
-	<button type="button" id="reg" name="reg" onclick="openR()">Registrar</button>
-</form>
+<div id="datosU" name="datosU">
+	<form action="php/loginUser.php" method="post">
+		<label for="userT">Usuario</label>
+		<input type="text" id="userT" name="userT"><br>
+		<label for="pwd">Password</label>
+		<input type="password" id="pwd" name="pwd"><br><br>
+		<!--
+		<button type="button" id="send" name="send" onclick="sendUser()">Ingresar</button><br>
+		-->
+		<input type="submit" value="Ingresar">
+		<button type="button" id="reg" name="reg" onclick="openR()">Registrar</button>
+	</form>
+</div>
 
+
+<!---
 <script>
 	function openR(){
 		location.href="keyParkingRegistrar.html";
@@ -33,7 +60,6 @@
 		window.alert("Usuario no valido");
 	}
 </script>
-<!--
 <script type="text/javascript">
 	document.getElementById("send").onClick = function(){
 		location.href = "keyParkingRegistrar.php";
