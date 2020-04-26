@@ -22,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 public class RegistroApplet implements ActionListener{
 	
@@ -63,12 +62,7 @@ public class RegistroApplet implements ActionListener{
 		
 		panel1 = new JPanel();
 		title = new JLabel(titleR);
-		//title.setAlignmentX(Component.CENTER_ALIGNMENT);
-		//title.setPreferredSize(new Dimension(450,15));
-		//title.setMaximumSize(title.getMinimumSize());
 		panel1.add(title);
-		//title.setHorizontalAlignment(SwingConstants.CENTER);
-		//title.setHorizontalTextPosition(SwingConstants.CENTER);
 		pane.add(panel1);
 		labelData = new  JLabel [datos.length];
 		panelData = new JPanel [labelData.length];
@@ -77,10 +71,6 @@ public class RegistroApplet implements ActionListener{
 			panelData[i] = new JPanel(new FlowLayout());
 			labelData[i] = new JLabel(datos[i]);
 			
-			//labelData[i].setAlignmentX(Component.LEFT_ALIGNMENT);
-			//labelData[i].setMaximumSize(labelData[i].getMinimumSize());
-			//labelData[i].setPreferredSize(new Dimension(300,5));
-			//pane.add(labelData[i]);
 			panelData[i].add(labelData[i]);
 			if(i == labelData.length-1) {
 				fieldPass = new JPasswordField();
@@ -93,7 +83,7 @@ public class RegistroApplet implements ActionListener{
 				fieldData[i].setPreferredSize(new Dimension(250,25));
 				panelData[i].add(fieldData[i]);
 			}
-			//panelData[i].setPreferredSize(new Dimension(300,10));
+			
 			pane.add(panelData[i], BorderLayout.WEST);
 		}
 		buttonSend = new JButton(buttonS);
@@ -103,12 +93,10 @@ public class RegistroApplet implements ActionListener{
 	}
 	
 	private Component addComponents() {
-		//panel1 = new JPanel();
 		panel2 = new JPanel(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		
 		title = new JLabel(titleR);
-		//panel1.add(title);
-		
+				
 		labelData = new  JLabel [datos.length];
 		for(int i = 0; i < (labelData.length-1); i++) {
 			labelData[i] = new JLabel(datos[i]);
@@ -173,8 +161,6 @@ public class RegistroApplet implements ActionListener{
 		mu = new Municipio();
 		dB = new Database();
 		
-		//frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));;
-		//frame.add(addComponents());
 		addComponentsToPane(frame.getContentPane());
 		frame.pack();
 		frame.setVisible(true);
@@ -183,20 +169,12 @@ public class RegistroApplet implements ActionListener{
 	protected void executeF() {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				//RegistroApplet ap = new RegistroApplet();
-				//ap.createAndShowGUI();
 				createAndShowGUI();
 			}
 		});
 	}
 	
-	public static void main(String [] args) {
-		/*javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				RegistroApplet ap = new RegistroApplet();
-				ap.createAndShowGUI();
-			}
-		});*/
+	public static void main(String [] args) { // Just for test
 		RegistroApplet ap = new RegistroApplet();
 		ap.executeF();
 	}

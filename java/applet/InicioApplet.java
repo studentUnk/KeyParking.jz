@@ -8,12 +8,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,7 +21,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.UIManager;
 import javax.swing.SwingUtilities;
 
@@ -54,36 +49,28 @@ public class InicioApplet extends JPanel implements ActionListener{
 	JButton buttonSend, buttonRegister;
 	
 	public InicioApplet() {
-		//super(new GridLayout(3,2)); // 3 rows x 2 column
-		//super(new BorderLayout());	
-		//ImageIcon icon = createImageIcon("images/middle.gif", "meaningless");
-		//create label
-		//label1 = new JLabel("Image and text", icon, JLabel.CENTER);
-		//set position of text
-		//label1.setVerticalTextPosition(JLabel.BOTTOM);
-		//label1.setHorizontalTextPosition(JLabel.CENTER);
-		
+			
 		//just text
-		labelUsuario = new JLabel (nombreUsuario);
-		labelPass = new JLabel (passUsuario);
+		labelUsuario = new JLabel (nombreUsuario); // label of the user code
+		labelPass = new JLabel (passUsuario); // label for the password
 		//label3 = new JLabel (icon);
 		
-		//tool tips for the heck of it
+		//tool tips for the heck of it 
 		//label1.setToolTipText("A label of image and text");
 		labelUsuario.setToolTipText("Nombre de usuario");
 		labelPass.setToolTipText("Password del Usuario");
 		//label3.setToolTipText("A label of image");
 		
 		// field
-		fieldUsuario = new JTextField();
-		fieldPass = new JPasswordField(10);
-		fieldPass.setEchoChar('*');
-		fieldPass.setActionCommand(botonEnviar);
-		fieldPass.addActionListener(this);
+		fieldUsuario = new JTextField(); // Field for the user code
+		fieldPass = new JPasswordField(10); // Field for the password
+		fieldPass.setEchoChar('*'); // Set character to hide insert password
+		fieldPass.setActionCommand(botonEnviar); // Action for send user
+		fieldPass.addActionListener(this); 
 		
 		// button
-		buttonSend = new JButton(botonEnviar);
-		buttonRegister = new JButton(botonRegistrar);
+		buttonSend = new JButton(botonEnviar); // Button "Enviar"
+		buttonRegister = new JButton(botonRegistrar); // Button "Registrar"
 		
 		// image
 		try {
@@ -93,10 +80,8 @@ public class InicioApplet extends JPanel implements ActionListener{
 			System.out.println("Image not found");
 			e.getStackTrace();
 		}
-		//imageL.setIcon(new javax.swing.ImageIcon(getClass().getResource("logo.png")));
+
 		imageLL = new JLabel(new ImageIcon(imageL));
-		//imageLL.setPreferredSize(new Dimension(500,300));
-		//imageL2 = getImage(getDocumentBase(), "logoF.png");
 		
 		//add the labels
 		panelLabel = new JPanel(new GridLayout(0,1));
@@ -112,8 +97,7 @@ public class InicioApplet extends JPanel implements ActionListener{
 		
 		setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		
-		//add(panelLabel,BorderLayout.CENTER);
-		//add(panelField,BorderLayout.LINE_END);
+		// add items to the frame
 		add(panelLabel);
 		add(panelField);
 		add(buttonSend);
@@ -126,9 +110,10 @@ public class InicioApplet extends JPanel implements ActionListener{
 	}
 	
 	private boolean isPasswordCorrect() {
+		// FIX ==> check that the user are only numbers
 		u.setPassword(String.valueOf(fieldPass.getPassword()));
 		u.setCodigo(Integer.parseInt(fieldUsuario.getText())); // check first that are just numbers
-		return db.userPassUsuario(u);
+		return db.userPassUsuario(u); // Send query to DB
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -138,16 +123,16 @@ public class InicioApplet extends JPanel implements ActionListener{
 			// dummy test
 			if (isPasswordCorrect()) {
 				JOptionPane.showMessageDialog(frame, messageSuccess);
-				frame.dispose();
+				frame.dispose(); // Delete frame
 				UsuarioApplet uA = new UsuarioApplet();
 				int tu;
-				switch(db.getRol(u)) {
+				switch(db.getRol(u)) { // Set type of user for the menu
 					//case "Cliente": tu=1; break;
 					case "Auxiliar": tu=2; break;
 					case "Administrador": tu=3; break;
 					default: tu=1; break;
 				}
-				uA.executeF(tu,fieldUsuario.getText());
+				uA.executeF(tu,fieldUsuario.getText()); // Start the menu of the user
 			}
 			else {
 				JOptionPane.showMessageDialog(frame, messageUnsuccess, "Mensaje de error",
@@ -156,10 +141,9 @@ public class InicioApplet extends JPanel implements ActionListener{
 		}
 		else {
 			// Applet to register the user
-			//JOptionPane.showMessageDialog(frame, "nothing");
-			frame.dispose();
-			RegistroApplet rA = new RegistroApplet();
-			rA.executeF();
+			frame.dispose(); // delete frame
+			RegistroApplet rA = new RegistroApplet(); 
+			rA.executeF(); // Start the page for sign up
 		}
 	}
 	
@@ -173,7 +157,7 @@ public class InicioApplet extends JPanel implements ActionListener{
 		}
 	}
 	
-	private static void createAndShowGUI() {
+	private static void createAndShowGUI() { // load the frame
 		// create and set up window
 		frame = new JFrame(nameFrame);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -192,7 +176,7 @@ public class InicioApplet extends JPanel implements ActionListener{
 		frame.setVisible(true);
 	}
 	
-	public void executeF() {
+	public void executeF() { // This method would help others frames to come back
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				// turn off metal's use of bold fonts

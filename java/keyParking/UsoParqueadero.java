@@ -78,6 +78,9 @@ public class UsoParqueadero {
 		else {
 			t = mi;
 		}
+		System.out.println(timeS);
+		System.out.println(timeE);
+		System.out.println("Precio t =" +t+ " | h = " + h + " | mi = " + mi);
 		return t;
 	}
 

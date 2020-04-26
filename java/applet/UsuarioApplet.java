@@ -97,7 +97,7 @@ public class UsuarioApplet implements ActionListener {
 	Dimension dC = new Dimension(100,25);
 	
 	JFrame frame;
-	JLabel labelUsuario []; 
+	JLabel labelUsuario [], jLab[]; 
 	JTextField fieldUsuario [];
 	JTextField txtF1,txtF2,txtF3,txtF4,txtF5,txtF6,txtF7,txtF8;
 	JButton buttonMenu [];
@@ -141,6 +141,126 @@ public class UsuarioApplet implements ActionListener {
 		
 	}
 	
+	private void buttonSendSolicitar() {
+		buttonS = new JButton(strButtonS);
+		buttonS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formatD = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				date = new Date();
+				try {
+					db.insertUsoParqueadero(
+							db.getSpecificStringTable2Int(
+									"Vehiculo", 
+									"placa_Vehiculo", choi3.getSelectedItem(),
+									"codigo_Vehiculo", 
+									"codigo_Usuario", nameUser), 
+							db.getSpecificString2TableStr2Int1(
+									"SitioParqueadero", "ubicacion_SitioParqueadero", choi2.getSelectedItem(), 
+									"SedeParqueadero", "nombre_SedeParqueadero", choi1.getSelectedItem(), 
+									"codigo_SedeParqueadero", "codigo_SitioParqueadero"), 
+							formatD.format(date));
+							//);
+					JOptionPane.showMessageDialog(frame, "Sitio asignado exitosamente");
+				} catch(Exception ex) {
+					JOptionPane.showMessageDialog(frame, "Su solicitud no ha sido enviada", "Mensaje de error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				// Update table SitioParqueadero
+				db.updateDispSitioParqueadero(
+						db.getSpecificStringTable("SedeParqueadero", 
+								"nombre_SedeParqueadero", choi1.getSelectedItem(),
+								"codigo_SedeParqueadero"), 
+								choi2.getSelectedItem());
+			}
+		});
+		buttonS.setBackground(Color.lightGray);
+		panelOptions.add(buttonS);		
+	}
+	
+	private void buttonSendPagar() {
+		buttonS = new JButton(strButtonP);
+		buttonS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Double t = Double.valueOf(db.getCobroTipoVehiculo(choi1.getSelectedItem()));
+				tV = new TipoVehiculo();
+				tV.setCobro(t);
+				setMyDate();
+				String tdate = formatD.format(date);
+				uP = new UsoParqueadero();
+				String s = String.valueOf(tV.calcularTotal(
+						uP.calcularTiempo(
+								db.getTiempoInicial(choi1.getSelectedItem()),
+								tdate)
+						));
+				db.insertFacturaCancelada(nameUser, s);
+				// Update fin_UsoParqueadero in UsoParqueadero
+				db.updateTableStrInt("UsoParqueadero", 
+						"fin_UsoParqueadero", tdate, 
+						"codigo_UsoParqueadero", choi1.getSelectedItem());
+				// Update codigo_Factura in UsoParqueadero
+				db.updateTableStrInt("UsoParqueadero",
+						"codigo_Factura", 
+						db.getFacturaFinal(nameUser), 
+						"codigo_UsoParqueadero", choi1.getSelectedItem());
+				// Update sitioParqueadero = Si
+				db.updateTableStrStr("SitioParqueadero", 
+						"disponibilidad_SitioParqueadero", "Si", 
+						"codigo_SitioParqueadero", 
+						db.getSpecificStringTable(
+								"UsoParqueadero", "codigo_UsoParqueadero", 
+								choi1.getSelectedItem(), "codigo_SitioParqueadero"));
+				JOptionPane.showMessageDialog(frame, "El monto de $" + s + " ha sido pagado");
+			}
+		});
+		buttonS.setBackground(Color.lightGray);
+		
+		panelOptions.add(buttonS);
+	}
+	
+	private void buttonSendAgregarVehiculo() {
+		buttonS = new JButton(strButtonA);
+		buttonS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vH = new Vehiculo();
+				vH.setPlaca(txtF1.getText());
+				vH.setColor(txtF2.getText());
+				db.insertVehiculo(
+						nameUser, 
+						db.getSpecificStringTable("MarcaVehiculo", "nombre_MarcaVehiculo",
+								choi2.getSelectedItem(), "codigo_MarcaVehiculo"),
+						db.getSpecificStringTable("TipoVehiculo", "nombre_TipoVehiculo",
+								choi1.getSelectedItem(), "codigo_TipoVehiculo"), 
+						vH);
+				JOptionPane.showMessageDialog(frame, "El vehiculo ha sido agregado");
+			}
+		});
+		buttonS.setBackground(Color.lightGray);
+		
+		panelOptions.add(buttonS);
+	}
+	
+	private void buttonSendModificarDatos() {
+		buttonS = new JButton(strButtonRC);
+		buttonS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// update DB with new info
+				db.updateTableUsuario(nameUser,
+						txtF1.getText(), // documento
+						txtF2.getText(), // nombre 
+						txtF3.getText(), // apellido 
+						txtF4.getText(), // direccion 
+						txtF5.getText(), //telefono
+						txtF6.getText(), // celular
+						txtF7.getText(), // correo
+						txtF8.getText()); // pass
+				
+				JOptionPane.showMessageDialog(frame, "Sus datos han sido actualizados");
+			}
+		});
+		buttonS.setBackground(Color.lightGray);
+		panelOptions.add(buttonS);
+	}
+	
 	private void addOptionsMenu() {
 		int sz = labelOpcionUsuario[optionC].length; // amount of options
 		panelOptions = new JPanel(); /// this might be a problem
@@ -154,9 +274,6 @@ public class UsuarioApplet implements ActionListener {
 		JPanel panelOM [] = new JPanel [sz]; // set panel
 		for(int i = 0 ; i < sz; i++) {
 			panelOM[i] = new JPanel();
-			//if(optionC == 0) {
-			//	panelOM[i].setLayout(new GridLayout(1,2));
-			//}
 		}
 		
 		labelUsuario = new JLabel [sz];
@@ -173,17 +290,7 @@ public class UsuarioApplet implements ActionListener {
 				for(int i = 0; sP2[i].getNombre() != ""; i++){
 					choi1.add(sP2[i].getNombre());
 				}
-				/**sL = db.getStringTable("SedeParqueadero", "nombre_SedeParqueadero");
-				tS = new String [1];
-				tS[0] = new String();
-				String sTT;
-				for(int i = 0; i < sL.size(); i++) {
-					//tS[0] = sL.get(i);
-					sTT = sL.get(i);
-					choi1.add(sTT);
-				}*/
-				//choi1.add("1"); // load file with the array Sede
-				//choi1.add("2");
+
 				panelOM[0].add(choi1); // First option
 				buttonS2 = new JButton(strButtonC);
 				buttonS2.addActionListener(new ActionListener() {
@@ -201,6 +308,7 @@ public class UsuarioApplet implements ActionListener {
 					}
 				});
 				panelOM[0].add(buttonS2);
+				
 				choi2 = new Choice(); // this needs to be constantly updated
 				choi2.setPreferredSize(dC);
 				siP2 = db.getSitioParqueadero(sP2[0].getNombre());
@@ -208,15 +316,16 @@ public class UsuarioApplet implements ActionListener {
 					choi2.add(siP2[i].getUbicacion());
 				}
 				panelOM[1].add(choi2); // Second option
+				
 				choi3 = new Choice();
-				//v.setBounds(100,100,75,75);
+				
 				choi3.setPreferredSize(dC);
 				sL2 = db.getVehiculoUsuario(nameUser);
 				for(int i = 0; i < sL2.size(); i++) {
-					//String t = sL2.get(i).get(0) + "-" + sL2.get(i).get(1);
 					choi3.add(sL2.get(i).get(0));
 				}
 				panelOM[2].add(choi3); // Third option
+				
 				break;
 			case 1:
 				choi1 = new Choice();
@@ -226,18 +335,30 @@ public class UsuarioApplet implements ActionListener {
 					choi1.add(sL.get(i));
 				}
 				panelOM[0].add(choi1);
+				
 				break;				
 			case 2:
 				txtF1 = new JTextField();
 				txtF1.setPreferredSize(dTF);
 				panelOM[0].add(txtF1);
+				
 				buttonS = new JButton(strButtonC);
 				buttonS.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(frame, "Nada por ahora");
+						sL = db.getFacturasPagadas(nameUser, txtF1.getText());
+						for(int arrS = 0; arrS < sL.size(); arrS++) {
+							jLab[arrS].setText(sL.get(arrS));
+						}
+						JOptionPane.showMessageDialog(frame, "Busqueda de factura finalizada");
 					}
 				});
 				panelOM[0].add(buttonS);
+				
+				jLab = new JLabel [5];
+				for(int jl = 0; jl < jLab.length; jl++) {
+					jLab[jl] = new JLabel();
+					panelOM[jl+1].add(jLab[jl]);
+				}
 				break;
 			case 3:
 				choi1 = new Choice();
@@ -247,6 +368,7 @@ public class UsuarioApplet implements ActionListener {
 					choi1.add(sP2[i].getNombre());
 				}
 				panelOM[0].add(choi1);
+				
 				buttonS = new JButton(strButtonC);
 				buttonS.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -254,6 +376,7 @@ public class UsuarioApplet implements ActionListener {
 					}
 				});
 				panelOM[0].add(buttonS);
+				
 				break;
 			case 4:
 				uS = db.getUsuario(nameUser);
@@ -310,88 +433,23 @@ public class UsuarioApplet implements ActionListener {
 		for(int i = 0; i < sz; i++) {
 			panelOptions.add(panelOM[i]);
 		}
-		if(optionC == 0 || optionC == 1 || optionC == 4 || optionC == 5) {
-			if(optionC == 0) {
-				buttonS = new JButton(strButtonS);
-				buttonS.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						formatD = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						date = new Date();
-						db.insertUsoParqueadero(
-								db.getSpecificStringTable2Int(
-										"Vehiculo", 
-										"placa_Vehiculo", choi3.getSelectedItem(),
-										"codigo_Vehiculo", 
-										"codigo_Usuario", nameUser), 
-								db.getSpecificString2TableStr2Int1(
-										"SitioParqueadero", "ubicacion_SitioParqueadero", choi2.getSelectedItem(), 
-										"SedeParqueadero", "nombre_SedeParqueadero", choi1.getSelectedItem(), 
-										"codigo_SedeParqueadero", "codigo_SitioParqueadero") 
-								//formatD.format(date));
-								);
-						JOptionPane.showMessageDialog(frame, "Solicitud enviada");
-					}
-				});
-				buttonS.setBackground(Color.lightGray);
-				panelOptions.add(buttonS);
-			}
-			if(optionC == 1) {
-				buttonS = new JButton(strButtonP);
-				buttonS.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						Double t = Double.valueOf(db.getCobroTipoVehiculo(choi1.getSelectedItem()));
-						tV = new TipoVehiculo();
-						tV.setCobro(t);
-						setMyDate();
-						String tdate = formatD.format(date);
-						uP = new UsoParqueadero();
-						String s = String.valueOf(tV.calcularTotal(
-								uP.calcularTiempo(
-										db.getTiempoInicial(choi1.getSelectedItem()),
-										tdate)
-								));
-						db.updateTableStrInt("UsoParqueadero", 
-								"fin_UsoParqueadero", tdate, 
-								"codigo_UsoParqueadero", choi1.getSelectedItem());
-						db.insertFacturaCancelada(nameUser, s);
-						JOptionPane.showMessageDialog(frame, "El monto de $" + s + " ha sido pagado");
-					}
-				});
-				buttonS.setBackground(Color.lightGray);
-				//buttonS.setPreferredSize(new Dimension(25,25));
-				panelOptions.add(buttonS);
-			}
-			if(optionC == 4) {
-				buttonS = new JButton(strButtonRC);
-				buttonS.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(frame, "Nada por ahora");
-					}
-				});
-				buttonS.setBackground(Color.lightGray);
-				panelOptions.add(buttonS);
-			}
-			if(optionC == 5) {
-				buttonS = new JButton(strButtonA);
-				buttonS.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						vH = new Vehiculo();
-						vH.setPlaca(txtF1.getText());
-						vH.setColor(txtF2.getText());
-						db.insertVehiculo(
-								nameUser, 
-								db.getSpecificStringTable("MarcaVehiculo", "nombre_MarcaVehiculo",
-										choi2.getSelectedItem(), "codigo_MarcaVehiculo"),
-								db.getSpecificStringTable("TipoVehiculo", "nombre_TipoVehiculo",
-										choi1.getSelectedItem(), "codigo_TipoVehiculo"), 
-								vH);
-						JOptionPane.showMessageDialog(frame, "El vehiculo ha sido agregado");
-					}
-				});
-				buttonS.setBackground(Color.lightGray);
-				panelOptions.add(buttonS);
-			}
-		}
+		switch(optionC) {
+			case 0: 
+				buttonSendSolicitar();// Establish the option for Solicitar
+				break;
+			case 1:
+				buttonSendPagar(); // Establish the option for Pagar
+				break;
+			case 4:
+				buttonSendModificarDatos(); // Establish the option for Modificar Datos
+				break;
+			case 5:
+				buttonSendAgregarVehiculo(); // Establish the option for Agregar Vehiculo
+				break;
+			default:
+				System.out.println("Wrong or no option for button menu send at the end");
+				break;
+		}		
 	}
 	
 	private void addComponentsMenu() {
@@ -399,14 +457,6 @@ public class UsuarioApplet implements ActionListener {
 		panelMenu.setLayout(new GridLayout(buttonMenuUA[typeUser].length,1));
 		
 		addButtonsMenu(buttonMenuUA[typeUser]);
-		
-		/**panelOptions = new JPanel();
-		panelOptions.setLayout(new GridLayout(labelOpcionUsuario[optionC].length,1));
-		
-		labelUsuario = new JLabel [labelOpcionUsuario.length];
-		labelUsuario[0] = new JLabel(labelOpcionUsuario[0][0]);
-		panelOptions.add(labelUsuario[0]);
-		**/
 	}
 	
 	private void addComponentsToPane(Container pane) {
@@ -462,11 +512,8 @@ public class UsuarioApplet implements ActionListener {
 		UIManager.put("Swing.boldMetal", Boolean.FALSE);
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				//UsuarioApplet ua = new UsuarioApplet();
-				//ua.typeUser = 3;
 				typeUser = tu-1;
 				nameUser = nameU;
-				//ua.createAndShowGUI();
 				createAndShowGUI();
 			}
 		});
@@ -483,10 +530,7 @@ public class UsuarioApplet implements ActionListener {
 		UIManager.put("Swing.boldMetal", Boolean.FALSE);
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				//UsuarioApplet ua = new UsuarioApplet();
-				//ua.typeUser = 3;
 				typeUser = tu-1;
-				//ua.createAndShowGUI();
 				createAndShowGUI();
 			}
 		});

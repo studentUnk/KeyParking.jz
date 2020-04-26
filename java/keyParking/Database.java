@@ -121,11 +121,12 @@ public class Database {
 		return true; // non sense
 	}
 	
-	public boolean insertUsoParqueadero(String codigoV, String codigoS) {
+	public boolean insertUsoParqueadero(String codigoV, String codigoS, String date) {
 		sqlQ = "INSERT INTO UsoParqueadero (";
 		sqlQ = sqlQ.concat("codigo_Vehiculo,codigo_SitioParqueadero,inicio_UsoParqueadero)");
 		sqlQ = sqlQ.concat(" VALUES (");
-		sqlQ = sqlQ.concat(codigoV + ",'" + codigoS + "',CURDATE())");
+		//sqlQ = sqlQ.concat(codigoV + ",'" + codigoS + "',CURDATE())");
+		sqlQ = sqlQ.concat(codigoV + ",'" + codigoS + "','" + date + "')");
 		System.out.println(sqlQ);
 		sendQueryUpdate();
 		return true;
@@ -140,11 +141,6 @@ public class Database {
 		sendQueryUpdate();
 		return true;
 	};
-	
-	//public Factura insertFactura() {
-		
-	//	return true;
-	//}
 	
 	public String getRol(Usuario u) {
 		Rol r = new Rol();
@@ -192,6 +188,67 @@ public class Database {
 		return s;
 	}
 	
+	public ArrayList<String> getFacturasPagadas(String user, String codigoF){
+		ArrayList<String> off = new ArrayList<String>();
+		
+		sqlQ = "SELECT ";
+		sqlQ = sqlQ.concat("fecha_Factura, precio_Factura, placa_Vehiculo, ");
+		sqlQ = sqlQ.concat("inicio_UsoParqueadero, fin_UsoParqueadero ");
+		sqlQ = sqlQ.concat("FROM Factura, UsoParqueadero, Vehiculo ");
+		sqlQ = sqlQ.concat("WHERE Factura.codigo_Usuario = " + user + " AND ");
+		sqlQ = sqlQ.concat("Factura.codigo_Factura = " + codigoF + " AND ");
+		sqlQ = sqlQ.concat("UsoParqueadero.codigo_Factura = Factura.codigo_Factura AND ");
+		sqlQ = sqlQ.concat("UsoParqueadero.codigo_Vehiculo = Vehiculo.codigo_Vehiculo");
+		/*
+		sqlQ = "SELECT ";
+		sqlQ = sqlQ.concat("fecha_Factura, precio_Factura ");
+		sqlQ = sqlQ.concat("FROM Factura ");
+		sqlQ = sqlQ.concat("WHERE codigo_Factura = " + codigoF + " AND ");
+		sqlQ = sqlQ.concat("codigo_Usuario = " + user);
+		*/
+		//sqlQ = sqlQ.concat();
+		System.out.println("Facturas pagadas");
+		System.out.println(sqlQ);
+		sendQueryExecute();
+		try {
+			if(!isEmptyQ()) {
+				off.add(rS.getString("fecha_Factura"));
+				off.add(rS.getString("precio_Factura"));
+				off.add(rS.getString("placa_Vehiculo"));
+				off.add(rS.getString("inicio_UsoParqueadero"));
+				off.add(rS.getString("fin_UsoParqueadero"));
+			}else {
+				System.out.println("Factura not found");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		closeDB();
+		return off;
+	}
+	
+	public String getFacturaFinal(String user) {
+		String finC = "";
+		sqlQ = "SELECT codigo_Factura ";
+		sqlQ = sqlQ.concat("FROM Factura ");
+		sqlQ = sqlQ.concat("WHERE codigo_Usuario = " + user + " ");
+		sqlQ = sqlQ.concat("ORDER BY codigo_Factura DESC LIMIT 1");
+		//sqlQ = sqlQ.concat(arg0);
+		System.out.println(sqlQ);
+		sendQueryExecute();
+		try {
+			if(!isEmptyQ()) {
+				finC = rS.getString("codigo_Factura");
+			} else {
+				System.out.println("There is no bill for the user");
+			}		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		closeDB();
+		return finC;
+	}
+	
 	public ArrayList<String> getFacturasEnCurso(String user) {
 		ArrayList<String> up = new ArrayList<String>(); // its better an array
 		sqlQ = "SELECT ";
@@ -214,6 +271,7 @@ public class Database {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		closeDB();
 		return up;
 	}
 	
@@ -234,6 +292,7 @@ public class Database {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		closeDB();
 		return s;
 	}
 	
@@ -258,6 +317,7 @@ public class Database {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		closeDB();
 		return s;
 	}
 	
@@ -318,16 +378,9 @@ public class Database {
 		sendQueryExecute();
 		try {
 			if(!isEmptyQ()) {
-				//int i = 0;
 				do {
-					//r[i] = new SedeParqueadero();
-					//r[i].setNombre(rS.getString(name));
 					sS.add(rS.getString(name));
-					//i++;
 				}while(rS.next());
-				//r[i] = new SedeParqueadero();
-				//r[] = rS.getString(r.nameS[0]);
-				//System.out.println(" " + ro);
 			}else {
 				System.out.println("SedeParqueadero not found");
 			}
@@ -336,7 +389,6 @@ public class Database {
 			e.printStackTrace();
 		}
 		closeDB();
-		//return r;
 		return sS;
 	}
 	
@@ -415,8 +467,6 @@ public class Database {
 					i++;
 				}while(rS.next());
 				r[i] = new SedeParqueadero();
-				//r[] = rS.getString(r.nameS[0]);
-				//System.out.println(" " + ro);
 			}else {
 				System.out.println("SedeParqueadero not found");
 			}
@@ -437,6 +487,7 @@ public class Database {
 		sqlQ = sqlQ.concat(" FROM SitioParqueadero, SedeParqueadero");
 		sqlQ = sqlQ.concat(" WHERE SedeParqueadero.nombre_SedeParqueadero = '" + sede +"'");
 		sqlQ = sqlQ.concat(" AND SedeParqueadero.codigo_SedeParqueadero = SitioParqueadero.codigo_SedeParqueadero");
+		sqlQ = sqlQ.concat(" AND SitioParqueadero.disponibilidad_SitioParqueadero = 'Si'");
 		System.out.println(sqlQ);
 		sendQueryExecute();
 		try {
@@ -454,9 +505,36 @@ public class Database {
 		return s;
 	}
 	
+	public void updateDispSitioParqueadero(String sede, String ubicacion) {
+		sqlQ = "UPDATE SitioParqueadero ";
+		sqlQ = sqlQ.concat("SET disponibilidad_SitioParqueadero = 'No' ");
+		sqlQ = sqlQ.concat("WHERE codigo_SedeParqueadero = " + sede + " ");
+		sqlQ = sqlQ.concat("AND ubicacion_SitioParqueadero = '" + ubicacion + "'");
+		System.out.println(sqlQ);
+		sendQueryUpdate();
+	}
+	
+	public void updateTableUsuario(String usuario, String documento, 
+			String nombre, String apellido,
+			String direccion, String telefono, String celular, String correo,
+			String pass) {
+		sqlQ = "UPDATE Usuario ";
+		sqlQ = sqlQ.concat("SET documento_Usuario = '" + documento + "'," );
+		sqlQ = sqlQ.concat(" nombre_Usuario = '" + nombre + "',");
+		sqlQ = sqlQ.concat(" apellido_Usuario = '" + apellido + "',");
+		sqlQ = sqlQ.concat(" direccion_Usuario = '" + direccion + "',");
+		sqlQ = sqlQ.concat(" telefono_Usuario = '" + telefono + "',");
+		sqlQ = sqlQ.concat(" celular_Usuario = '" + celular + "',");
+		sqlQ = sqlQ.concat(" email_Usuario = '" + correo + "',");
+		sqlQ = sqlQ.concat(" password_Usuario = '" + pass + "'");
+		sqlQ = sqlQ.concat(" WHERE codigo_Usuario = " + usuario);
+		System.out.println(sqlQ);
+		sendQueryUpdate();
+	}
+	
 	public void updateTableStrStr(String nameTable, String valueSet, String value, String valueCompare, String compare) {
 		sqlQ = "UPDATE " + nameTable;
-		sqlQ = sqlQ.concat("SET " + valueSet + " = '" + value + "' ");
+		sqlQ = sqlQ.concat(" SET " + valueSet + " = '" + value + "' ");
 		sqlQ = sqlQ.concat("WHERE " + valueCompare + " = '" + compare + "'");
 		System.out.println(sqlQ);
 		sendQueryUpdate();
@@ -544,7 +622,7 @@ public class Database {
 		}
 	}
 	
-	public static void main(String args[]) {
+	public static void main(String args[]) { // Test connectivity
 		//ConnectToDB();
 		Database db = new Database();
 		db.connectToDB();
