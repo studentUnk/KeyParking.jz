@@ -16,3 +16,6 @@ function sendUser(){
 function errorUser(){
 	window.alert("Usuario no valido");
 }
+function refreshSitioD(){
+	document.getElementById('divSitiosD').innerHTML = '../menu/radioSitiosD.php?f=15';
+}

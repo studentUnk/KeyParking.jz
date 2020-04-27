@@ -2,7 +2,7 @@
 	include("connectDB.php");
 	session_start();
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
-		$myuser=mysqli_real_escape_string($conn,$_POST['userT']);
+		$myuser=mysqli_real_escape_string($conn,$_POST['vehiculo']);
 		$mypass=mysqli_real_escape_string($conn,$_POST['pwd']);
 		
 		$sql="SELECT codigo_Usuario FROM Usuario WHERE codigo_Usuario=$myuser AND password_Usuario='$mypass'";
