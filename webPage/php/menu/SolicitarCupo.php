@@ -49,7 +49,7 @@
 	<a href="AgregarVehiculo.php">Agregar vehiculo</a>
 	</div>
 	<div id="solicitarCupoTexto" name="solicitarCupoTexto">
-		<form action='../php/successSol.php' method='post'> 
+		<form action='successSol.php' method='post'> 
 										
 			<label for="vehiculo">Vehiculo</label>
 			<?php

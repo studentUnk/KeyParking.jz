@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="javascript/script.js"></script>
+<style>
+	#datosP label{
+		display: inline-block;
+		width: 150px;
+	}
+</style>
+</head>
+<body>
+
+<h1> Registro keyParking.jz </h1>
+
+<div id="datosP" name="datosP">
+	<form action="php/registerUser.php" method="post">
+		<label for="userN">Nombre</label>
+		<input type="text" id="userN" name="userN"><br>
+		<label for="userA">Apellido</label>
+		<input type="text" id="userA" name="userA"><br>
+		<label for="userDoc">Documento</label>
+		<input type="text" id="userDoc" name="userDoc"><br>
+		<label for="userDir">Direccion</label>
+		<input type="text" id="userDir" name="userDir"><br>
+		<label for="userTel">Telefono</label>
+		<input type="text" id="userTel" name="userTel"><br>
+		<label for="userCel">Celular</label>
+		<input type="text" id="userCel" name="userCel"><br>
+		<label for="userCorreo">Correo</label>
+		<input type="text" id="userCorreo" name="userCorreo"><br>
+		<label for="userCode">Codigo</label>
+		<input type="text" id="userCode" name="userCode"><br>
+		<label for="pass">Password</label>
+		<input type="password" id="pwd" name="pwd"><br>
+		<button type="button" id="noSend" name="noSend" onclick="openS()">Regresar</button>
+		<input type="submit" value="Enviar">
+	</form>
+</div>
+
+</body>
+</html>

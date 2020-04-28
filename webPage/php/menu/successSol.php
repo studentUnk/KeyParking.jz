@@ -1,5 +1,5 @@
 <?php
-	include('connectDB.php');
+	include('../php/connectDB.php');
 	session_start();
 	
 	$user_check = $_SESSION['login_user'];

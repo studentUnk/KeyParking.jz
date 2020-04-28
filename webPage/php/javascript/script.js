@@ -4,9 +4,6 @@ function openR(){
 function openS(){
 	location.href="keyParkingInicio.html";
 }
-function openMC(){
-	location.href="../menu/Menue.php";
-}
 function sendUser(){
 	var u = document.getElementById("userT").value;
 	if(u == "user"){
