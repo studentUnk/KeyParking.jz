@@ -23,7 +23,7 @@
 			$submitforP=$row['cobroMinuto_TipoVehiculo'];
 		}
 		else{
-			echo "Error obteniendo cobro<br>";
+			//echo "Error obteniendo cobro<br>";
 			$checkMe = 1;
 		}
 		// get start time
@@ -41,7 +41,9 @@
 			//$dateS = $row['inicio_UsoParqueadero'];
 		}
 		else{
-			echo "Error obteniendo datos del parqueadero<br>";
+			// Fix
+			header("location: ../menu/Menue.php");
+			//echo "Error obteniendo datos del parqueadero<br>";
 			$checkMe = 1;
 		}
 		
@@ -69,7 +71,7 @@
 			echo "Factura ha sido cancelada<br>";
 		}
 		else{
-			echo "La factura no se pudo cancelar<br>";
+			//echo "La factura no se pudo cancelar<br>";
 			$checkMe = 1;
 		}
 		
@@ -84,7 +86,7 @@
 			$lastBU = $row['codigo_Factura'];
 		}
 		else{
-			echo "No se obtuvo la ultima factura<br>";
+			//echo "No se obtuvo la ultima factura<br>";
 			$checkMe = 1;
 		}
 		
@@ -109,7 +111,7 @@
 			echo "Sitio del parqueadero actualizado<br>";
 		}
 		else{
-			echo "El sitio del parqueadero no ha sido modificado<br>";
+			//echo "El sitio del parqueadero no ha sido modificado<br>";
 			$checkMe = 1;
 		}
 		/**
@@ -169,6 +171,10 @@
 		//echo date("Y-m-d H-i-s");
 		if($checkMe == 0){
 			header("location: ../menu/successBill.php");
+		}
+		else{
+			//Fix
+			header("location: ../menu/MenuE.php");
 		}
 	}
 ?>

@@ -50,7 +50,7 @@
 	<a href="AgregarVehiculo.php">Agregar vehiculo</a>
 	</div>
 	<div id="solicitarCupoTexto" name="solicitarCupoTexto">
-		<label>Pago realizado exitosamente!</label>
+		<label>Sus datos han sido actualizados exitosamente!</label>
 	</div>
 </div>
 

@@ -30,9 +30,9 @@
 			}
 			//header("location: testW.php");
 		}else{
-			$error="Acceso no valido";
-			echo "$error";
-			//header("location: ../keyParkingInicio.html");
+			//$error="Acceso no valido";
+			//echo "$error";
+			header("location: ../keyParkingInicio.html");
 		}
 	}
 	$conn->close();

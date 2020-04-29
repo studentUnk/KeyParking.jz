@@ -1,82 +1,58 @@
 <?php
-	include('connectDB.php');
-	session_start();
-	
-	$user_check = $_SESSION['login_user'];
-	
-	if($_SERVER["REQUEST_METHOD"]=="POST"){
-		$myveh=mysqli_real_escape_string($conn,$_POST['vehiculo']);
-		$mysit=mysqli_real_escape_string($conn,$_POST['sitio']);
-		$find='-';
-		$pos=strpos($mysit, $find);
-		$sit=substr($mysit,0,$pos);
-		$sed=substr($mysit,$pos+1);
-		$codV="";
-		$codS="not";
-		
-		$sql="SELECT codigo_Vehiculo ".
-		"FROM Vehiculo ".
-		"WHERE placa_vehiculo = '".$myveh."'";
-		//$result=mysqli_query($conn,$sql);
-		$result = $conn->query($sql);
-		if($result->num_rows > 0){
-			$row = $result->fetch_assoc();
-			$codV=$row['codigo_Vehiculo'];
-		}
-		
-		// It would be nice to check availabity again...
-
-		$sql="SELECT codigo_SitioParqueadero ".
-		"FROM SitioParqueadero, SedeParqueadero ".
-		"WHERE SitioParqueadero.ubicacion_SitioParqueadero = '".$sit."' ".
-		"AND SitioParqueadero.codigo_SedeParqueadero = SedeParqueadero.codigo_SedeParqueadero ".
-		"AND SedeParqueadero.nombre_SedeParqueadero = '".$sed."'";
-		//echo $sql.'<br>';
-		//$result=mysqli_query($conn,$sql);
-		$result = $conn->query($sql);
-		if($result->num_rows > 0){
-			$row = $result->fetch_assoc();
-			$codS=$row['codigo_SitioParqueadero'];
-		}
-		
-		//echo $codS.'<br>';
-		$sql="INSERT INTO UsoParqueadero ".
-		"(codigo_Vehiculo, codigo_SitioParqueadero, inicio_UsoParqueadero) ".
-		"VALUES (".$codV.",'".$codS."','".date("Y-m-d H-i-s")."')";
-		if($conn->query($sql) === TRUE) {
-			$sql2="UPDATE SitioParqueadero ".
-			"SET disponibilidad_SitioParqueadero = 'No' ".
-			"WHERE codigo_SitioParqueadero = '".$codS."'";
-			if($conn->query($sql2) === TRUE){
-				echo "Solicitud enviada exitosamente<br>";
-			}
-			else{
-				echo "Se creo factura pero el sitio no fue actualizado<br>";
-			}
-		}else{
-			echo "Error: " . $sql . "<br>" . $conn->error;
-		}
-		//$result=mysqli_query($conn,$sql);
-		//$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
-		//$active=$row['active'];
-		
-		//$count=mysqli_num_rows($result);
-		// if the user matched then the table must return 1 user
-		//if($count==1){
-			//session_register("codigo_Usuario");
-		//	$_SESSION['login_user']=$myuser;
-		//	header("location: ../menu/SolicitarCupo.php");
-			//header("location: testW.php");
-		//}else{
-		//	$error="Acceso no valido";
-			//echo "$error";
-		//	header("location: ../keyParkingInicio.html");
-		//}
-		//echo $myveh.'<br>';
-		//echo $mysit.'<br>';
-		//echo substr($mysit,0,$pos).'<br>';
-		//echo substr($mysit,$pos+1).'<br>';
-		//echo date("Y-m-d H-i-s");
-	}
-	//echo 'Solicitud exitosa';
+	@ include('../php/session.php');
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="javascript/script.js"></script>
+<style>
+.menuCompleto:{
+
+}
+
+.vertical-menu {
+	width: 200px;
+	float: left;
+}
+.vertical-menu a{
+	background-color: #F0F8FF;
+	display: block;
+	padding: 8px;
+}
+.vertical-menu a:hover{
+	background-color: #FFEBCD;
+}
+.vertical-menu a.active {
+	background-color: #A52A2A;
+}
+
+.solicitarCupoTexto {
+	float: right;
+}
+
+.mydate {
+	visibility: hidden;
+	hidden;
+}
+</style>
+</head>
+<body>
+
+<h1> Bienvenido <?php echo $login_session; ?></h1>
+<div id="menuCompleto" name="menuCompleto">
+	<div class="vertical-menu">
+	<a href="../php/logout.php">Cerrar sesion</a>
+	<a href="SolicitarCupo.php">Solicitar cupo</a>
+	<a href="PagarFactura.php">Pagar factura</a>
+	<a href="FacturaPagada.php">Facturas pagadas</a>
+	<a href="AlternativaParqueadero.php">Alternativas parqueadero</a>
+	<a href="ModificarDatos.php">Modificar datos personales</a>
+	<a href="AgregarVehiculo.php">Agregar vehiculo</a>
+	</div>
+	<div id="solicitarCupoTexto" name="solicitarCupoTexto">
+		<label>El cupo se ha asignado exitosamente!</label>
+	</div>
+</div>
+
+</body>
+</html>

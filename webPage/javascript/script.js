@@ -16,6 +16,9 @@ function sendUser(){
 		window.alert("Usuario no valido");
 	}
 }
+function showP(){
+	window.alert("Bicicleta $4 x minuto\nMoto $20 x minuto\nAuto $50 x minuto");
+}
 function errorUser(){
 	window.alert("Usuario no valido");
 }

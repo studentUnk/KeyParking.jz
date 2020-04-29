@@ -41,6 +41,7 @@
 <h1> Bienvenido <?php echo $login_session; ?></h1>
 <div id="menuCompleto" name="menuCompleto">
 	<div class="vertical-menu">
+	<a href="../php/logout.php">Cerrar sesion</a>
 	<a href="SolicitarCupo.php">Solicitar cupo</a>
 	<a href="PagarFactura.php">Pagar factura</a>
 	<a href="FacturaPagada.php">Facturas pagadas</a>
@@ -49,7 +50,55 @@
 	<a href="AgregarVehiculo.php">Agregar vehiculo</a>
 	</div>
 	<div id="solicitarCupoTexto" name="solicitarCupoTexto">
-		<label>No hay ninguna accion por ahora en Agregar Vehiculo.</label>
+	<form action="../php/registerVeh.php" method="post">
+		<label for="mypl">Placa</label>
+		<br>
+		<input type="text" id="mypl" name="mypl">
+		<br>
+		<label for="myco">Color</label>
+		<br>
+		<input type="text" id="myco" name="myco">
+		<br><br>
+		<label for="myty">Tipo de vehiculo</label>
+		<br>
+		<select id="myty" name="myty">
+		<?php
+			$sql="SELECT codigo_TipoVehiculo, nombre_TipoVehiculo ".
+			"FROM TipoVehiculo ";
+			$result = $conn->query($sql);
+			if($result->num_rows > 0){				
+				while($row = $result->fetch_assoc()){
+					echo '<option value="'.$row['codigo_TipoVehiculo'].'">'.
+					$row['nombre_TipoVehiculo'].'</option>';
+				}				
+			}
+			else{
+				echo '<option value="ningunaS">Ninguna</option>';
+			}
+		?>
+		</select>
+		<br><br>
+		<label for="mybr">Marca de vehiculo</label>
+		<br>
+		<select id="mybr" name="mybr">
+		<?php
+			$sql="SELECT codigo_MarcaVehiculo, nombre_MarcaVehiculo ".
+			"FROM MarcaVehiculo";
+			$result = $conn->query($sql);
+			if($result->num_rows > 0){				
+				while($row = $result->fetch_assoc()){
+					echo '<option value="'.$row['codigo_MarcaVehiculo'].'">'.
+					$row['nombre_MarcaVehiculo'].'</option>';
+				}				
+			}
+			else{
+				echo '<option value="ningunaS">Ninguna</option>';
+			}
+		?>
+		</select>
+		<br><br>
+		<input type="submit" value="Agregar">
+	</form>
 	</div>
 </div>
 

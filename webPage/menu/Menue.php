@@ -41,6 +41,7 @@
 <h1> Bienvenido <?php echo $login_session; ?></h1>
 <div id="menuCompleto" name="menuCompleto">
 	<div class="vertical-menu">
+	<a href="../php/logout.php">Cerrar sesion</a>
 	<a href="SolicitarCupo.php">Solicitar cupo</a>
 	<a href="PagarFactura.php">Pagar factura</a>
 	<a href="FacturaPagada.php">Facturas pagadas</a>
