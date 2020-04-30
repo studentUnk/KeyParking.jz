@@ -16,7 +16,7 @@
 		"VALUES ('".$myuserPl."', '".$myuserCo."', ".$myuserTy.", ".$myuserBr.", ".$user_check.")";
 		
 		if($conn->query($sql) === TRUE) {
-			header("location: ../menu/successVeh.php");
+			header("location: ../menu/cli/successVeh.php");
 		}else{
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}		

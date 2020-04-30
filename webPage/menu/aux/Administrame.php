@@ -1,5 +1,5 @@
 <?php
-	@ include('../php/session.php');
+	@ include('../../php/session.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +41,7 @@
 <h1> Bienvenido <?php echo $login_session; ?></h1>
 
 <div id="menuCompleto" name="menuCompleto">
-	<form action="../php/logout.php" method="post">
+	<form action="../../php/logout.php" method="post">
 		<input type="submit" value="Cerrar sesion">
 		<br><br>
 	</form>
@@ -49,7 +49,7 @@
 	<br><br>
 	
 	<div id="insertUser" name="insertUser">
-	<form action="../php/auxSol.php" method="post">
+	<form action="../../php/auxSol.php" method="post">
 		<label for="nameU">Codigo del usuario</label>
 		<br>
 		<input type="text" id="nameU" name="nameU">

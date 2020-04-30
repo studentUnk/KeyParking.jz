@@ -1,5 +1,5 @@
 <?php
-	include('../php/connectDB.php');
+	include('connectDB.php');
 	session_start();
 	
 	$user_check = $_SESSION['login_user'];
@@ -50,7 +50,7 @@
 			"WHERE codigo_SitioParqueadero = '".$codS."'";
 			if($conn->query($sql2) === TRUE){
 				echo "Solicitud enviada exitosamente<br>";
-				header("location: ../menu/successSol.php");
+				header("location: ../menu/cli/successSol.php");
 			}
 			else{
 				echo "Se creo factura pero el sitio no fue actualizado<br>";
@@ -58,27 +58,5 @@
 		}else{
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
-		//$result=mysqli_query($conn,$sql);
-		//$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
-		//$active=$row['active'];
-		
-		//$count=mysqli_num_rows($result);
-		// if the user matched then the table must return 1 user
-		//if($count==1){
-			//session_register("codigo_Usuario");
-		//	$_SESSION['login_user']=$myuser;
-		//	header("location: ../menu/SolicitarCupo.php");
-			//header("location: testW.php");
-		//}else{
-		//	$error="Acceso no valido";
-			//echo "$error";
-		//	header("location: ../keyParkingInicio.html");
-		//}
-		//echo $myveh.'<br>';
-		//echo $mysit.'<br>';
-		//echo substr($mysit,0,$pos).'<br>';
-		//echo substr($mysit,$pos+1).'<br>';
-		//echo date("Y-m-d H-i-s");
 	}
-	//echo 'Solicitud exitosa';
 ?>

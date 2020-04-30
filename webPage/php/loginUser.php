@@ -17,15 +17,15 @@
 			$_SESSION['login_user']=$myuser;
 			$typeU = array("Cliente","Auxiliar");
 			if(strcmp($row['nombre_Rol'],$typeU[0]) == 0){
-				header("location: ../menu/Menue.php");
+				header("location: ../menu/cli/Menue.php");
 			}
 			else{
 				if(strcmp($row['nombre_Rol'],$typeU[1]) == 0){
-					header("location: ../menu/Administrame.php");
+					header("location: ../menu/aux/Administrame.php");
 				}
 				else{
 					// you are god!! good luck! :P
-					header("location: ../menu/OpcionAdministrador.php");
+					header("location: ../menu/adm/OpcionAdministrador.php");
 				}
 			}
 			//header("location: testW.php");

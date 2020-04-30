@@ -1,5 +1,5 @@
 <?php
-	@ include('../php/session.php');
+	@ include('../../php/session.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,7 +47,7 @@
 <h1> Bienvenido <?php echo $login_session; ?></h1>
 <div id="menuCompleto" name="menuCompleto">
 	<div class="vertical-menu">
-	<a href="../php/logout.php">Cerrar sesion</a>
+	<a href="../../php/logout.php">Cerrar sesion</a>
 	<a href="SolicitarCupo.php">Solicitar cupo</a>
 	<a href="PagarFactura.php">Pagar factura</a>
 	<a href="FacturaPagada.php">Facturas pagadas</a>
@@ -56,7 +56,7 @@
 	<a href="AgregarVehiculo.php">Agregar vehiculo</a>
 	</div>
 	<div id="solicitarCupoTexto" name="solicitarCupoTexto">
-	<form action="../php/updateUser.php" method="post">
+	<form action="../../php/updateUser.php" method="post">
 		<?php
 			$sql="SELECT nombre_Usuario, apellido_Usuario, direccion_Usuario,".
 			"telefono_Usuario, celular_Usuario, password_Usuario, email_Usuario ".

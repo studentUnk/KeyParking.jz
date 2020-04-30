@@ -1,5 +1,5 @@
 <?php
-	@ include('../php/session.php');
+	@ include('../../php/session.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,19 +39,17 @@
 <body>
 
 <h1> Bienvenido <?php echo $login_session; ?></h1>
+
 <div id="menuCompleto" name="menuCompleto">
-	<div class="vertical-menu">
-	<a href="../php/logout.php">Cerrar sesion</a>
-	<a href="SolicitarCupo.php">Solicitar cupo</a>
-	<a href="PagarFactura.php">Pagar factura</a>
-	<a href="FacturaPagada.php">Facturas pagadas</a>
-	<a href="AlternativaParqueadero.php">Alternativas parqueadero</a>
-	<a href="ModificarDatos.php">Modificar datos personales</a>
-	<a href="AgregarVehiculo.php">Agregar vehiculo</a>
-	</div>
-	<div id="solicitarCupoTexto" name="solicitarCupoTexto">
-		<label>Pago realizado exitosamente!</label>
-	</div>
+	<form action="../../php/logout.php" method="post">
+		<input type="submit" value="Cerrar sesion">
+		<br><br>
+	</form>
+	La solicitud ha sido registrada exitosamente.
+	<br><br>
+	<form action="Administrame.php" method="post">
+		<input type="submit" value="Regresar">
+	</form>
 </div>
 
 </body>

@@ -1,5 +1,5 @@
 <?php
-	@ include('../php/session.php');
+	@ include('../../php/session.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -40,7 +40,13 @@
 
 <h1> Bienvenido <?php echo $login_session; ?></h1>
 <div id="menuCompleto" name="menuCompleto">
-	<label>No hay ninguna accion por ahora para el usuario Administrador.</label>
+	<div class="vertical-menu">
+	<a href="../../php/logout.php">Cerrar sesion</a>
+	<a href="HistoricBill.php">Historico de ventas</a>
+	<a href="HistoricUser.php">Historico de usuario</a>
+	<a href="Dev.php">Dev</a>
+	</div>
+	<label>Cambios realizados exitosamente</label>
 </div>
 
 </body>

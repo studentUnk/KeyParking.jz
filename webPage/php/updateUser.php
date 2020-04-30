@@ -23,7 +23,7 @@
 		"password_Usuario = '".$myuserPwd."' ".
 		"WHERE codigo_Usuario = ".$user_check;
 		if($conn->query($sql) === TRUE) {
-			header("location: ../menu/successUpdateUser.php");
+			header("location: ../menu/cli/successUpdateUser.php");
 		}else{
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}		
