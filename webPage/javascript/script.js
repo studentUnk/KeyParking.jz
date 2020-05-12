@@ -1,8 +1,8 @@
 function openR(){
-	location.href="keyParkingRegistrar.html";
+	location.href="keyParkingRegistrar.php";
 }
 function openS(){
-	location.href="keyParkingInicio.html";
+	location.href="keyParkingInicio.php";
 }
 function openMC(){
 	location.href="../menu/Menue.php";

@@ -2,6 +2,6 @@
 	session_start();
 	
 	if(session_destroy()) {
-		header("location: ../keyParkingInicio.html");
+		header("location: ../keyParkingInicio.php");
 	}
 ?>
