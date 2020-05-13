@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 03, 2020 at 11:25 PM
+-- Generation Time: May 13, 2020 at 06:48 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -30,6 +30,7 @@ USE `keyparking`;
 -- Table structure for table `Departamento`
 --
 
+DROP TABLE IF EXISTS `Departamento`;
 CREATE TABLE `Departamento` (
   `codigo_Departamento` int(11) NOT NULL,
   `nombre_Departamento` varchar(30) NOT NULL
@@ -48,6 +49,7 @@ INSERT INTO `Departamento` (`codigo_Departamento`, `nombre_Departamento`) VALUES
 -- Table structure for table `Factura`
 --
 
+DROP TABLE IF EXISTS `Factura`;
 CREATE TABLE `Factura` (
   `codigo_Factura` int(11) NOT NULL,
   `fecha_Factura` datetime NOT NULL,
@@ -62,7 +64,44 @@ CREATE TABLE `Factura` (
 
 INSERT INTO `Factura` (`codigo_Factura`, `fecha_Factura`, `codigo_Usuario`, `precio_Factura`, `cancelado_Factura`) VALUES
 (1, '2020-04-03 00:00:00', 1234, '39000', 'Si'),
-(2, '2020-04-03 00:00:00', 1234, '39000', 'Si');
+(2, '2020-04-03 00:00:00', 1234, '39000', 'Si'),
+(3, '2020-04-24 00:00:00', 1234, '57000', 'Si'),
+(4, '2020-04-24 00:00:00', 1234, '57000', 'Si'),
+(5, '2020-04-25 00:00:00', 1234, '24000', 'Si'),
+(6, '2020-04-25 00:00:00', 1234, '50', 'Si'),
+(7, '2020-04-25 00:00:00', 1234, '400', 'Si'),
+(8, '2020-04-25 00:00:00', 1234, '300', 'Si'),
+(9, '2020-04-25 00:00:00', 1234, '0', 'Si'),
+(10, '2020-04-25 00:00:00', 1234, '50', 'Si'),
+(12, '2020-04-26 00:00:00', 1234, '0', 'Si'),
+(13, '2020-04-26 00:00:00', 1234, '0', 'Si'),
+(14, '2020-04-26 00:00:00', 1234, '0', 'Si'),
+(15, '2020-04-28 19:30:00', 1234, '81150', 'Si'),
+(16, '2020-04-28 19:32:51', 1234, '81300', 'Si'),
+(17, '2020-04-28 19:35:21', 1234, '81000', 'Si'),
+(18, '2020-04-28 19:40:56', 1234, '81250', 'Si'),
+(19, '2020-04-28 19:42:12', 1234, '80150', 'Si'),
+(20, '2020-04-28 19:43:43', 1234, '0', 'Si'),
+(21, '2020-04-28 19:45:37', 1234, '0', 'Si'),
+(22, '2020-04-28 19:54:28', 1234, '350', 'Si'),
+(23, '2020-04-28 19:55:30', 1234, '0', 'Si'),
+(24, '2020-04-29 00:37:54', 1234, '0', 'Si'),
+(25, '2020-04-29 00:44:38', 1234, '0', 'Si'),
+(26, '2020-04-28 00:00:00', 1234, '48000', 'Si'),
+(27, '2020-04-29 17:57:53', 1234, '0', 'Si'),
+(28, '2020-04-29 18:41:55', 1234, '0', 'Si'),
+(29, '2020-04-29 18:58:06', 1234, '50', 'Si'),
+(30, '2020-04-29 18:58:10', 1234, '0', 'Si'),
+(31, '2020-05-13 05:06:43', 1234, '2500', 'Si'),
+(32, '2020-05-13 05:06:46', 1234, '2450', 'Si'),
+(33, '2020-05-13 05:06:48', 1234, '800', 'Si'),
+(34, '2020-05-13 05:22:52', 1234, '0', 'Si'),
+(35, '2020-05-13 05:43:57', 1234, '0', 'Si'),
+(36, '2020-05-13 05:48:22', 1234, '200', 'Si'),
+(37, '2020-05-13 05:58:51', 1234, '200', 'Si'),
+(38, '2020-05-13 05:59:31', 1234, '0', 'Si'),
+(39, '2020-05-13 05:59:35', 1234, '0', 'Si'),
+(40, '2020-05-13 05:59:40', 1234, '0', 'Si');
 
 -- --------------------------------------------------------
 
@@ -70,6 +109,7 @@ INSERT INTO `Factura` (`codigo_Factura`, `fecha_Factura`, `codigo_Usuario`, `pre
 -- Table structure for table `MarcaVehiculo`
 --
 
+DROP TABLE IF EXISTS `MarcaVehiculo`;
 CREATE TABLE `MarcaVehiculo` (
   `codigo_MarcaVehiculo` int(11) NOT NULL,
   `nombre_MarcaVehiculo` varchar(30) NOT NULL
@@ -94,6 +134,7 @@ INSERT INTO `MarcaVehiculo` (`codigo_MarcaVehiculo`, `nombre_MarcaVehiculo`) VAL
 -- Table structure for table `Municipio`
 --
 
+DROP TABLE IF EXISTS `Municipio`;
 CREATE TABLE `Municipio` (
   `codigo_Municipio` int(11) NOT NULL,
   `nombre_Municipio` varchar(30) NOT NULL,
@@ -113,6 +154,7 @@ INSERT INTO `Municipio` (`codigo_Municipio`, `nombre_Municipio`, `codigo_Departa
 -- Table structure for table `ParqueaderosAlternos`
 --
 
+DROP TABLE IF EXISTS `ParqueaderosAlternos`;
 CREATE TABLE `ParqueaderosAlternos` (
   `codigo_ParqueaderosAlternos` int(11) NOT NULL,
   `nombre_ParqueaderosAlternos` varchar(45) NOT NULL,
@@ -136,6 +178,7 @@ INSERT INTO `ParqueaderosAlternos` (`codigo_ParqueaderosAlternos`, `nombre_Parqu
 -- Table structure for table `Rol`
 --
 
+DROP TABLE IF EXISTS `Rol`;
 CREATE TABLE `Rol` (
   `nombre_Rol` varchar(30) NOT NULL,
   `descripcion_Rol` text DEFAULT NULL
@@ -156,6 +199,7 @@ INSERT INTO `Rol` (`nombre_Rol`, `descripcion_Rol`) VALUES
 -- Table structure for table `SedeParqueadero`
 --
 
+DROP TABLE IF EXISTS `SedeParqueadero`;
 CREATE TABLE `SedeParqueadero` (
   `codigo_SedeParqueadero` int(11) NOT NULL,
   `nombre_SedeParqueadero` varchar(45) NOT NULL,
@@ -178,6 +222,7 @@ INSERT INTO `SedeParqueadero` (`codigo_SedeParqueadero`, `nombre_SedeParqueadero
 -- Table structure for table `SitioParqueadero`
 --
 
+DROP TABLE IF EXISTS `SitioParqueadero`;
 CREATE TABLE `SitioParqueadero` (
   `codigo_SitioParqueadero` varchar(4) NOT NULL,
   `ubicacion_SitioParqueadero` varchar(8) NOT NULL,
@@ -213,6 +258,7 @@ INSERT INTO `SitioParqueadero` (`codigo_SitioParqueadero`, `ubicacion_SitioParqu
 -- Table structure for table `TipoVehiculo`
 --
 
+DROP TABLE IF EXISTS `TipoVehiculo`;
 CREATE TABLE `TipoVehiculo` (
   `codigo_TipoVehiculo` int(11) NOT NULL,
   `nombre_TipoVehiculo` varchar(25) DEFAULT NULL,
@@ -234,6 +280,7 @@ INSERT INTO `TipoVehiculo` (`codigo_TipoVehiculo`, `nombre_TipoVehiculo`, `cobro
 -- Table structure for table `UsoParqueadero`
 --
 
+DROP TABLE IF EXISTS `UsoParqueadero`;
 CREATE TABLE `UsoParqueadero` (
   `codigo_UsoParqueadero` int(11) NOT NULL,
   `codigo_Vehiculo` int(11) NOT NULL,
@@ -249,7 +296,43 @@ CREATE TABLE `UsoParqueadero` (
 
 INSERT INTO `UsoParqueadero` (`codigo_UsoParqueadero`, `codigo_Vehiculo`, `codigo_SitioParqueadero`, `codigo_Factura`, `inicio_UsoParqueadero`, `fin_UsoParqueadero`) VALUES
 (1, 1, 'AB1', NULL, '2020-04-03 00:00:00', '2020-04-03 14:57:46'),
-(2, 1, 'AB1', NULL, '2020-04-03 00:00:00', '2020-04-03 14:58:08');
+(2, 1, 'AB1', NULL, '2020-04-03 00:00:00', '2020-04-03 14:58:08'),
+(3, 1, 'BB2', NULL, '2020-04-24 00:00:00', '2020-04-24 20:20:39'),
+(4, 1, 'AB1', NULL, '2020-04-24 00:00:00', '2020-04-24 20:29:48'),
+(5, 1, 'AB1', NULL, '2020-04-25 00:00:00', '2020-04-25 09:00:08'),
+(6, 1, 'AB1', NULL, '2020-04-25 09:11:56', '2020-04-25 09:12:24'),
+(7, 1, 'AB1', NULL, '2020-04-25 10:11:48', '2020-04-25 10:19:37'),
+(8, 1, 'AB1', NULL, '2020-04-25 10:19:13', '2020-04-25 10:25:02'),
+(9, 1, 'AB2', NULL, '2020-04-25 10:29:41', '2020-04-25 10:29:50'),
+(10, 1, 'AB3', NULL, '2020-04-25 10:32:54', '2020-04-25 10:33:01'),
+(12, 1, 'AB3', NULL, '2020-04-26 11:09:50', '2020-04-26 11:09:55'),
+(13, 1, 'AB3', NULL, '2020-04-26 12:01:40', '2020-04-26 12:01:44'),
+(14, 1, 'AB1', 14, '2020-04-26 13:06:21', '2020-04-26 13:06:32'),
+(15, 1, 'AB1', 16, '2020-04-27 16:26:42', '2020-04-28 19:32:51'),
+(16, 1, 'AB2', 17, '2020-04-27 16:34:31', '2020-04-28 19:35:21'),
+(17, 1, 'AB3', 18, '2020-04-27 16:35:26', '2020-04-28 19:40:56'),
+(18, 1, 'AB4', 19, '2020-04-27 16:59:09', '2020-04-28 19:42:12'),
+(19, 1, 'AB1', 20, '2020-04-28 19:43:37', '2020-04-28 19:43:43'),
+(20, 1, 'AB1', 21, '2020-04-28 19:45:33', '2020-04-28 19:45:37'),
+(21, 1, 'AB1', 22, '2020-04-28 19:46:57', '2020-04-28 19:54:28'),
+(22, 1, 'AB1', 23, '2020-04-28 19:55:13', '2020-04-28 19:55:30'),
+(23, 1, 'AB1', 24, '2020-04-29 00:37:44', '2020-04-29 00:37:54'),
+(24, 1, 'AB1', 25, '2020-04-29 00:44:31', '2020-04-29 00:44:38'),
+(25, 1, 'AB1', 26, '2020-04-29 02:42:38', '2020-04-28 19:47:23'),
+(26, 4, 'AB1', 27, '2020-04-29 17:57:44', '2020-04-29 17:57:53'),
+(27, 1, 'AB1', 28, '2020-04-29 18:41:49', '2020-04-29 18:41:55'),
+(28, 1, 'AB1', 29, '2020-04-29 18:56:22', '2020-04-29 18:58:06'),
+(29, 1, 'AB2', 30, '2020-04-29 18:57:11', '2020-04-29 18:58:10'),
+(30, 1, 'AB1', 31, '2020-05-13 04:16:02', '2020-05-13 05:06:43'),
+(31, 1, 'AB1', 32, '2020-05-13 04:16:49', '2020-05-13 05:06:46'),
+(32, 4, 'AB2', 33, '2020-05-13 04:26:28', '2020-05-13 05:06:48'),
+(33, 1, 'AB1', 34, '2020-05-13 05:22:49', '2020-05-13 05:22:52'),
+(34, 1, 'AB1', 35, '2020-05-13 05:43:35', '2020-05-13 05:43:57'),
+(35, 1, 'AB1', 36, '2020-05-13 05:44:04', '2020-05-13 05:48:22'),
+(36, 4, 'AB1', 37, '2020-05-13 05:48:44', '2020-05-13 05:58:51'),
+(37, 1, 'AB1', 38, '2020-05-13 05:59:06', '2020-05-13 05:59:31'),
+(38, 3, 'AB2', 39, '2020-05-13 05:59:14', '2020-05-13 05:59:35'),
+(39, 4, 'AB3', 40, '2020-05-13 05:59:18', '2020-05-13 05:59:40');
 
 -- --------------------------------------------------------
 
@@ -257,6 +340,7 @@ INSERT INTO `UsoParqueadero` (`codigo_UsoParqueadero`, `codigo_Vehiculo`, `codig
 -- Table structure for table `Usuario`
 --
 
+DROP TABLE IF EXISTS `Usuario`;
 CREATE TABLE `Usuario` (
   `codigo_Usuario` int(11) NOT NULL,
   `documento_Usuario` varchar(30) NOT NULL,
@@ -267,7 +351,7 @@ CREATE TABLE `Usuario` (
   `celular_Usuario` varchar(13) NOT NULL,
   `nombre_Rol` varchar(30) NOT NULL,
   `codigo_Municipio` int(11) NOT NULL,
-  `password_Usuario` varchar(20) NOT NULL,
+  `password_Usuario` varbinary(40) NOT NULL,
   `email_Usuario` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -276,10 +360,12 @@ CREATE TABLE `Usuario` (
 --
 
 INSERT INTO `Usuario` (`codigo_Usuario`, `documento_Usuario`, `nombre_Usuario`, `apellido_Usuario`, `direccion_Usuario`, `telefono_Usuario`, `celular_Usuario`, `nombre_Rol`, `codigo_Municipio`, `password_Usuario`, `email_Usuario`) VALUES
-(1111, '1111', '1111', '1111', '1111', '1111', '1111', 'Cliente', 1101, '1111', '1111'),
-(1234, '1234', '1234', '1234', '1234', '1234', '1234', 'Cliente', 1101, '1234', '1234@1234'),
-(7777, '77779879', 'Johan', 'Goethe', 'Cra N T I', '7777777', '3007777777', 'Administrador', 1101, 'admin', 'admin@keyparking.com'),
-(7778, '87878787', 'Anderson', 'Botaviento', 'Cra 23 - 23', '8778787', '3008778787', 'Auxiliar', 1101, 'aux', 'auxiliar@keyparking.com');
+(1111, '1111', '1111', '1111', '1111', '1111', '1111', 'Cliente', 1101, 0x4f365a7667444a6c684c4f47734c6872426e4c5130513d3d, '1111@111'),
+(1234, '1234', '1234', '1234', '1234', '1234', '1234', 'Cliente', 1101, 0x772b44635a464a644d50676a364d47664f46684f59673d3d, '1234@1234'),
+(2345, '1234321', 'Raul', 'De la estrella', '12# 1234', '2224455', '3002224455', 'Cliente', 1101, 0x4c42396375624f476e6a6e53475234592f50397242413d3d, 'raul@delaestrella.com'),
+(5555, '555555', 'Dummy', 'Dummy', 'asdf lkasd flk as', '555555', '555555', 'Cliente', 1101, 0x2b43786259787632445474644f6334434339592f43413d3d, 'adsf@asdflkj'),
+(7777, '77779879', 'Johan', 'Goethe', 'Cra N T I', '7777777', '3007777777', 'Administrador', 1101, 0x728ca63be8a4343032d985f1be56d9f8, 'admin@keyparking.com'),
+(7778, '87878787', 'Anderson', 'Botaviento', 'Cra 23 - 23', '8778787', '3008778787', 'Auxiliar', 1101, 0x7a9c20af93dcbbf7d9b1a5e5871f5adc, 'auxiliar@keyparking.com');
 
 -- --------------------------------------------------------
 
@@ -287,6 +373,7 @@ INSERT INTO `Usuario` (`codigo_Usuario`, `documento_Usuario`, `nombre_Usuario`, 
 -- Table structure for table `Vehiculo`
 --
 
+DROP TABLE IF EXISTS `Vehiculo`;
 CREATE TABLE `Vehiculo` (
   `codigo_Vehiculo` int(11) NOT NULL,
   `placa_Vehiculo` varchar(15) NOT NULL,
@@ -302,7 +389,10 @@ CREATE TABLE `Vehiculo` (
 
 INSERT INTO `Vehiculo` (`codigo_Vehiculo`, `placa_Vehiculo`, `color_Vehiculo`, `codigo_TipoVehiculo`, `codigo_MarcaVehiculo`, `codigo_Usuario`) VALUES
 (1, 'SQR-123', 'SQR-123', 3, 4, 1234),
-(2, '', '', 1, 1, 1234);
+(3, '122h', 'black', 2, 2, 1234),
+(4, 'asd-123', 'negra', 2, 3, 1234),
+(7, 'SQR-234', 'Negra', 2, 6, 1234),
+(8, 'SQR-444', 'Azul', 1, 1003, 1234);
 
 --
 -- Indexes for dumped tables
@@ -400,7 +490,7 @@ ALTER TABLE `Vehiculo`
 -- AUTO_INCREMENT for table `Factura`
 --
 ALTER TABLE `Factura`
-  MODIFY `codigo_Factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigo_Factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `MarcaVehiculo`
@@ -430,13 +520,13 @@ ALTER TABLE `TipoVehiculo`
 -- AUTO_INCREMENT for table `UsoParqueadero`
 --
 ALTER TABLE `UsoParqueadero`
-  MODIFY `codigo_UsoParqueadero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigo_UsoParqueadero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `Vehiculo`
 --
 ALTER TABLE `Vehiculo`
-  MODIFY `codigo_Vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigo_Vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
