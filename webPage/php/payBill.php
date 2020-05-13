@@ -6,6 +6,9 @@
 	
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 		$mybill=mysqli_real_escape_string($conn,$_POST['facturasL']);
+		if($mybill == "Ninguna"){ // There is no bill
+			header("location: ../menu/cli/unsuccessBill.php");
+		}
 		$submitforP=0;
 		$dateS="";
 		$codeSP=0; // codigo_SitioParqueadero
@@ -42,7 +45,7 @@
 		}
 		else{
 			// Fix
-			header("location: ../menu/cli/Menue.php");
+			header("location: ../menu/cli/unsuccessBill.php");
 			//echo "Error obteniendo datos del parqueadero<br>";
 			$checkMe = 1;
 		}
@@ -120,7 +123,7 @@
 		}
 		else{
 			//Fix
-			header("location: ../menu/cli/MenuE.php");
+			header("location: ../menu/cli/unsuccessBill.php");
 		}
 	}
 ?>

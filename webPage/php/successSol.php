@@ -6,6 +6,9 @@
 	
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 		$myveh=mysqli_real_escape_string($conn,$_POST['vehiculo']);
+		if($myveh == "Ninguna"){ // Check this.. later... because is not a good solution
+			header("location: ../menu/cli/Menue.php");
+		}
 		$mysit=mysqli_real_escape_string($conn,$_POST['sitio']);
 		$find='-';
 		$pos=strpos($mysit, $find);

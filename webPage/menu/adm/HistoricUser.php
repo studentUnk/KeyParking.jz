@@ -69,6 +69,7 @@ tr:nth-child(even){
 		<table>
 			<tr>
 				<th>Codigo usuario</th>
+				<th>Password</th>
 				<th>Documento</th>
 				<th>Nombre</th>
 				<th>Apellido</th>
@@ -78,10 +79,12 @@ tr:nth-child(even){
 				<th>Correo</th>
 			</tr>
 			<?php
+				include('../../php/encAES.php');
 				$sql="SELECT codigo_Usuario, documento_Usuario, nombre_Usuario, ".
 				"apellido_Usuario, direccion_Usuario, telefono_Usuario, celular_Usuario, ".
-				"email_Usuario ".
+				"email_Usuario, password_Usuario ".
 				"FROM Usuario ".
+				"WHERE Usuario.nombre_Rol = 'Cliente'".
 				"ORDER BY codigo_Usuario";
 				$result = $conn->query($sql);
 				$totalS = 0;
@@ -89,6 +92,7 @@ tr:nth-child(even){
 					while($row = $result->fetch_assoc()){
 						echo '<tr>';
 						echo '<td>'.$row['codigo_Usuario'].'</td>';
+						echo '<td>'.decrypt_Openssl($row['password_Usuario']).'</td>';
 						echo '<td>'.$row['documento_Usuario'].'</td>';
 						echo '<td>'.$row['nombre_Usuario'].'</td>';
 						echo '<td>'.$row['apellido_Usuario'].'</td>';

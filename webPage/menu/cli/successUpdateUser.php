@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="javascript/script.js"></script>
+<script type="text/javascript" src="../../javascript/script.js"></script>
 <style>
 .menuCompleto:{
 

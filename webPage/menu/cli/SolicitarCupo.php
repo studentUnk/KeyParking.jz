@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="javascript/script.js"></script>
+<script type="text/javascript" src="../../javascript/script.js"></script>
 <style>
 .menuCompleto:{
 
@@ -55,9 +55,19 @@
 										
 			<label for="vehiculo">Vehiculo</label>
 			<?php
-				$sql = "SELECT placa_Vehiculo ".
+				$sql = "SELECT Vehiculo.placa_Vehiculo ".
 				"FROM Vehiculo ".
-				"WHERE codigo_Usuario = ".$user_check;
+				"WHERE ".
+				// codigo_Usuario = ".$user_check." ".
+				//"AND 
+				//"NOT EXISTS( ".
+				"Vehiculo.placa_Vehiculo NOT IN(".
+				"SELECT placa_Vehiculo ".
+				"FROM Vehiculo, UsoParqueadero ".
+				"WHERE Vehiculo.codigo_Usuario = ".$user_check." ".
+				"AND Vehiculo.codigo_Vehiculo = UsoParqueadero.codigo_Vehiculo ".
+				"AND UsoParqueadero.fin_UsoParqueadero IS NULL".
+				" )";
 				$result = $conn->query($sql);
 				echo '<select id="vehiculo" name="vehiculo">';
 				if($result->num_rows > 0){

@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="../../javascript/script.js"></script>
 <style>
 .menuCompleto:{
 
@@ -50,33 +49,7 @@
 	<a href="AgregarVehiculo.php">Agregar vehiculo</a>
 	</div>
 	<div id="solicitarCupoTexto" name="solicitarCupoTexto">
-		<?php
-			$sql="SELECT nombre_ParqueaderosAlternos,".
-			"direccion_ParqueaderosAlternos, nombre_SedeParqueadero ".
-			"FROM SedeParqueadero, ParqueaderosAlternos ".
-			"WHERE SedeParqueadero.codigo_SedeParqueadero = ParqueaderosAlternos.codigo_SedeParqueadero ".
-			"ORDER BY nombre_SedeParqueadero";
-			$result = $conn->query($sql);
-			if($result->num_rows > 0){	
-				$prevS="_";			
-				while($row = $result->fetch_assoc()){
-					if(strcmp($prevS, $row['nombre_SedeParqueadero']) != 0){
-						echo '<b>'.$row['nombre_SedeParqueadero'].'</b>';
-						echo '<br><br>';
-						$prevS = $row['nombre_SedeParqueadero'];
-					}
-					echo '<i>Nombre: </i>';
-					echo $row['nombre_ParqueaderosAlternos'];
-					echo '<br>';
-					echo '<i>Direccion: </i>';
-					echo $row['direccion_ParqueaderosAlternos'];
-					echo '<br><br>';
-				}				
-			}
-			else{
-				echo 'No se cargo ningun parqueadero alterno';
-			}
-		?>
+		<label>No se realizo ningun pago</label>
 	</div>
 </div>
 

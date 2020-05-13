@@ -19,11 +19,6 @@
 	include("php/functionsCheck.php");
 	include("php/connectDB.php");
 	include("php/encAES.php");
-	
-	// Use openssl_encrypt() function to encrypt data
-	
-	
-	/// ==============
 			
 	$nameError = $lnameError = $docError = $dirError = "";
 	$telError = $celError = $emailError = $codeError = $pwdError = "";

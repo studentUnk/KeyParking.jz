@@ -36,22 +36,6 @@
 	
 	session_start();
 	
-	/**
-	// Info for encrypt the data
-	$methodEncrypt = "AES256";
-	// Openssl encrypt method
-	$iv_length = openssl_cipher_iv_length($methodEncrypt);
-	$options = 0;
-	// Non-null initilization vector for encryption
-	//$encryption_iv = '1234567891011121';
-	$encryption_iv = 'thisisatestencry';
-	// Store the encryption key
-	$encryption_key = "ProgramacionAvanzada";
-	
-	
-	/// ==============
-	**/
-	
 	$uPError = $userError = $passError = "";
 	$checkMe = 1;
 	
@@ -100,14 +84,15 @@
 			if($result->num_rows > 0){
 				$row = $result->fetch_assoc();
 				$tU = $row['nombre_Rol'];
-				if(strcmp($tU, "Cliente") == 0){
+				if(strcmp($tU, "Cliente") == 0){ // client
 					$mypass = encrypt_Openssl($mypass); // encrypt the password to check
 				}
-				else{
-					$sql = "SELECT @aes=AES_ENCRYPT('".$mypass."', 'ProgramacionAvanzada') ";
-					$result = $conn->query($sql);
-					$result->num_rows;
-					$mypass = $row['aes'];
+				else{ // admin and aux
+					$sql2 = "SELECT AES_ENCRYPT('".$mypass."', 'ProgramacionAvanzada') ";
+					$result2 = $conn->query($sql2);
+					//$result2->num_rows;
+					$row2 = $result2->fetch_assoc();
+					$mypass = $row2["AES_ENCRYPT('".$mypass."', 'ProgramacionAvanzada')"];
 				}
 			}
 			
