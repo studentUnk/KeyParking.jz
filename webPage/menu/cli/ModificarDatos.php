@@ -6,15 +6,32 @@
 <head>
 <script type="text/javascript" src="../../javascript/script.js"></script>
 <style>
-.menuCompleto:{
-
-}
-
-.vertical-menu {
-	width: 200px;
+.column {
 	float: left;
 }
+
+.left {
+	width: 20%;
+	height: 100vmax;
+	background-color: #F0F8FF;
+}
+
+.right {
+	width: 80%;
+}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+h1 {
+	text-align: center;
+}
+
 .vertical-menu a{
+	text-align: center;
 	background-color: #F0F8FF;
 	display: block;
 	padding: 8px;
@@ -37,7 +54,7 @@
 
 #solicitarCupoTexto label{
 	display: inline-block;
-	width: 80px;
+	width: 85px;
 }
 
 </style>
@@ -210,68 +227,72 @@
 	}
 	//$conn->close();
 ?>
-
-<h1> Bienvenido <?php echo $login_session; ?></h1>
+<img src="../../img/logoF.png" alt="logo" width="140" height="45" style="float:left;">
+<h1> Bienvenido <?php echo '<i>'.$login_session.'</i>'; ?></h1>
 <div id="menuCompleto" name="menuCompleto">
-	<div class="vertical-menu">
-	<a href="../../php/logout.php">Cerrar sesion</a>
-	<a href="SolicitarCupo.php">Solicitar cupo</a>
-	<a href="PagarFactura.php">Pagar factura</a>
-	<a href="FacturaPagada.php">Facturas pagadas</a>
-	<a href="AlternativaParqueadero.php">Alternativas parqueadero</a>
-	<a href="ModificarDatos.php">Modificar datos personales</a>
-	<a href="AgregarVehiculo.php">Agregar vehiculo</a>
+	<div class="column left" id="menuCompleto" name="menuCompleto" style="background-color:#F0F8FF;">
+		<div class="vertical-menu">
+		<a href="../../php/logout.php">Cerrar sesion</a><br>
+		<a href="SolicitarCupo.php">Solicitar cupo</a>
+		<a href="PagarFactura.php">Pagar factura</a>
+		<a href="FacturaPagada.php">Facturas pagadas</a>
+		<a href="AlternativaParqueadero.php">Alternativas parqueadero</a>
+		<a href="ModificarDatos.php">Modificar datos personales</a>
+		<a href="AgregarVehiculo.php">Agregar vehiculo</a>
+		</div>
 	</div>
-	<div id="solicitarCupoTexto" name="solicitarCupoTexto">
-	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-		<?php
-			$sql="SELECT nombre_Usuario, apellido_Usuario, direccion_Usuario,".
-			"telefono_Usuario, celular_Usuario, password_Usuario, email_Usuario ".
-			"FROM Usuario ".
-			"WHERE codigo_Usuario = ".$user_check;
-			$result = $conn->query($sql);
-			$checkMe = 0;
-			if($result->num_rows > 0){
-				$row = $result->fetch_assoc();
-				echo '<label for="nameU">Nombre </label>';
-				echo '<input type="text" id="nameU" name="nameU" value="'.$row["nombre_Usuario"].'">';
-				echo '<span class="error"><i>'.$nameError.'</i></span>';
-				echo '<br>';
-				echo '<label for="lname">Apellido </label>';
-				echo '<input type="text" id="lname" name="lname" value="'.$row["apellido_Usuario"].'">';
-				echo '<span class="error"><i>'.$lnameError.'</i></span>';
-				echo '<br>';
-				echo '<label for="addr">Direccion </label>';
-				echo '<input type="text" id="addr" name="addr" value="'.$row["direccion_Usuario"].'">';
-				echo '<span class="error"><i>'.$dirError.'</i></span>';
-				echo '<br>';
-				echo '<label for="pho">Telefono </label>';
-				echo '<input type="text" id="pho" name="pho" value="'.$row["telefono_Usuario"].'">';
-				echo '<span class="error"><i>'.$telError.'</i></span>';
-				echo '<br>';
-				echo '<label for="smpho">Celular </label>';
-				echo '<input type="text" id="smpho" name="smpho" value="'.$row["celular_Usuario"].'">';
-				echo '<span class="error"><i>'.$celError.'</i></span>';
-				echo '<br>';
-				echo '<label for="em">Correo </label>';
-				echo '<input type="text" id="em" name="em" value="'.$row["email_Usuario"].'">';
-				echo '<span class="error"><i>'.$emailError.'</i></span>';
-				echo '<br>';
-				echo '<label for="pwd">Password </label>';
-				echo '<input type="password" id="pwd" name="pwd" value="'.
-					decrypt_Openssl($row["password_Usuario"]).'">';
-				echo '<span class="error"><i>'.$pwdError.'</i></span>';
-			}
-			else{
-				echo "No se cargaron los datos";
-				$checkMe = 1;
-			}
-		?>
-		<br>
-		<br>
-		<input type="submit" value="Actualizar">
-		
-	</form>
+	<div class="column right">
+		<div id="solicitarCupoTexto" name="solicitarCupoTexto">
+		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+			<?php
+				$sql="SELECT nombre_Usuario, apellido_Usuario, direccion_Usuario,".
+				"telefono_Usuario, celular_Usuario, password_Usuario, email_Usuario ".
+				"FROM Usuario ".
+				"WHERE codigo_Usuario = ".$user_check;
+				$result = $conn->query($sql);
+				$checkMe = 0;
+				if($result->num_rows > 0){
+					$row = $result->fetch_assoc();
+					echo '<label for="nameU">Nombre </label>';
+					echo '<input type="text" id="nameU" name="nameU" value="'.$row["nombre_Usuario"].'">';
+					echo '<span class="error"><i>'.$nameError.'</i></span>';
+					echo '<br>';
+					echo '<label for="lname">Apellido </label>';
+					echo '<input type="text" id="lname" name="lname" value="'.$row["apellido_Usuario"].'">';
+					echo '<span class="error"><i>'.$lnameError.'</i></span>';
+					echo '<br>';
+					echo '<label for="addr">Direccion </label>';
+					echo '<input type="text" id="addr" name="addr" value="'.$row["direccion_Usuario"].'">';
+					echo '<span class="error"><i>'.$dirError.'</i></span>';
+					echo '<br>';
+					echo '<label for="pho">Telefono </label>';
+					echo '<input type="text" id="pho" name="pho" value="'.$row["telefono_Usuario"].'">';
+					echo '<span class="error"><i>'.$telError.'</i></span>';
+					echo '<br>';
+					echo '<label for="smpho">Celular </label>';
+					echo '<input type="text" id="smpho" name="smpho" value="'.$row["celular_Usuario"].'">';
+					echo '<span class="error"><i>'.$celError.'</i></span>';
+					echo '<br>';
+					echo '<label for="em">Correo </label>';
+					echo '<input type="text" id="em" name="em" value="'.$row["email_Usuario"].'">';
+					echo '<span class="error"><i>'.$emailError.'</i></span>';
+					echo '<br>';
+					echo '<label for="pwd">Password </label>';
+					echo '<input type="password" id="pwd" name="pwd" value="'.
+						decrypt_Openssl($row["password_Usuario"]).'">';
+					echo '<span class="error"><i>'.$pwdError.'</i></span>';
+				}
+				else{
+					echo "No se cargaron los datos";
+					$checkMe = 1;
+				}
+			?>
+			<br>
+			<br>
+			<input type="submit" value="Actualizar">
+			
+		</form>
+		</div>
 	</div>
 </div>
 

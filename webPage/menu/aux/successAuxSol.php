@@ -4,11 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="javascript/script.js"></script>
 <style>
-.menuCompleto:{
-
-}
 
 .vertical-menu {
 	width: 200px;
@@ -38,10 +34,12 @@
 </head>
 <body>
 
-<h1> Bienvenido <?php echo $login_session; ?></h1>
+<img src="../../img/logoF.png" alt="logo" width="140" height="45" style="float:left;">
+<h1> Bienvenido <?php echo '<i>'.$login_session.'</i>'; ?></h1>
 
 <div id="menuCompleto" name="menuCompleto">
 	<form action="../../php/logout.php" method="post">
+		<br>
 		<input type="submit" value="Cerrar sesion">
 		<br><br>
 	</form>

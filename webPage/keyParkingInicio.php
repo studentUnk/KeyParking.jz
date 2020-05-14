@@ -14,6 +14,9 @@
 		background-position: bottom;
 		background-size:90%
 	}
+	h1 {
+		text-align: center;
+	}
 	#datosU {
 		margin: auto;
 		text-align: center;
@@ -139,7 +142,7 @@
 		<label for="pwd">Password</label>
 		<input type="password" id="pwd" name="pwd">
 		<br><br>
-		<input type="submit" value="Ingresar">
+		<input type="submit" value="Ingresar" id="getIn" name="getIn">
 		<button type="button" id="reg" name="reg" onclick="openR()">Registrar</button>
 		<button type="button" id="consP" name="consP" onclick="showP()">Tarifas</button>
 		
